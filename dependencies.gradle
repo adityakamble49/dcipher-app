@@ -1,0 +1,56 @@
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+ext {
+    // Android
+    androidBuildToolsVersion = "27.0.1"
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 27
+    androidCompileSdkVersion = 27
+
+    // Libraries
+    kotlinVersion = '1.2.0'
+    supportLibraryVersion = '27.0.2'
+    roomVersion = '1.0.0'
+    javaxInjectVersion = '1'
+    javaxAnnotationVersion = '1.0'
+    rxKotlinVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
+    gsonVersion = '2.8.2'
+    daggerVersion = '2.12'
+    timberVersion = '4.6.0'
+    debugDbVersion = '1.0.1'
+
+    // Testing
+    jUnitVersion = '4.12'
+    expressoVersion = '3.0.1'
+    androidSupportRunnerVersion = '1.0.1'
+
+    mobileUiDependencies = [
+            kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            appCompatV4    : "com.android.support:support-v4:${supportLibraryVersion}",
+            appCompatV7    : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            supportDesign  : "com.android.support:design:${supportLibraryVersion}",
+            supportVector  : "com.android.support:support-vector-drawable:${supportLibraryVersion}",
+            dagger         : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            rxKotlin       : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
+            roomRuntime    : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomRxJava     : "android.arch.persistence.room:rxjava2:${roomVersion}",
+            timber         : "com.jakewharton.timber:timber:${timberVersion}",
+            debugDb        : "com.amitshekhar.android:debug-db:${debugDbVersion}"
+    ]
+
+    mobileUiTestDependencies = [
+            junit        : "junit:junit:${jUnitVersion}",
+            supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
+            expressoCore : "com.android.support.test.espresso:espresso-core:${expressoVersion}"
+    ]
+}
