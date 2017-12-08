@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ActionButtons">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ActionButtons.Encrypt">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/almost_black</item>
+    </style>
+
+    <style name="ActionButtons.Decrypt">
+        <item name="android:textColor">@color/almost_black</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>
