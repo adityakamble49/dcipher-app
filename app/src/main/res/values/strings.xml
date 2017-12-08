@@ -3,4 +3,7 @@
 
     <string name="encrypt_text">Encrypt Text</string>
     <string name="decrypt_text">Decrypt Text</string>
+
+    <string name="encrypt_text_hint">Enter text to Encrypt</string>
+    <string name="decrypt_text_hint">Enter text to Decrypt</string>
 </resources>
