@@ -24,18 +24,19 @@
     </style>
 
     <style name="InputText">
-        <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="InputText.Encrypt">
         <item name="android:textColor">@color/almost_black</item>
+        <item name="android:textColorHint">@color/almost_black</item>
         <item name="android:background">@color/white</item>
     </style>
 
     <style name="InputText.Decrypt">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
         <item name="android:background">@color/almost_black</item>
     </style>
 
