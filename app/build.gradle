@@ -64,6 +64,7 @@ dependencies {
     implementation mobileUiDependencies.roomRuntime
     implementation mobileUiDependencies.roomRxJava
     implementation mobileUiDependencies.timber
+    implementation mobileUiDependencies.getbaseFAB
 
     kapt mobileUiDependencies.daggerCompiler
     kapt mobileUiDependencies.daggerProcessor

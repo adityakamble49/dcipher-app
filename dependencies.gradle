@@ -23,6 +23,7 @@ ext {
     gsonVersion = '2.8.2'
     daggerVersion = '2.12'
     timberVersion = '4.6.0'
+    getbaseFABVersion = '1.10.1'
     debugDbVersion = '1.0.1'
 
     // Testing
@@ -45,6 +46,7 @@ ext {
             roomRuntime    : "android.arch.persistence.room:runtime:${roomVersion}",
             roomRxJava     : "android.arch.persistence.room:rxjava2:${roomVersion}",
             timber         : "com.jakewharton.timber:timber:${timberVersion}",
+            getbaseFAB     : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
             debugDb        : "com.amitshekhar.android:debug-db:${debugDbVersion}"
     ]
 
