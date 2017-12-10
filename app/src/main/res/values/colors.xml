@@ -8,4 +8,8 @@
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#a39e9e</color>
     <color name="dark_gray">#6c6363</color>
+
+    <!--FAB Colors-->
+    <color name="black_semi_transparent">#B2000000</color>
+
 </resources>
