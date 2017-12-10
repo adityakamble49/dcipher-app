@@ -31,16 +31,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     /*
-     * Helper Functions
-     */
-
-    private fun bindView() {
-        encrypt_button.setOnClickListener(this)
-        decrypt_button.setOnClickListener(this)
-    }
-
-
-    /*
      * Listener Functions
      */
 
@@ -57,4 +47,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         return true
     }
+
+
+    /*
+     * Helper Functions
+     */
+
+    private fun bindView() {
+        encrypt_button.setOnClickListener(this)
+        decrypt_button.setOnClickListener(this)
+    }
+
 }
