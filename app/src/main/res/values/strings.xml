@@ -6,4 +6,6 @@
 
     <string name="encrypt_text_hint">Enter text to Encrypt</string>
     <string name="decrypt_text_hint">Enter text to Decrypt</string>
+    <string name="encryption">Encryption</string>
+    <string name="decryption">Decryption</string>
 </resources>

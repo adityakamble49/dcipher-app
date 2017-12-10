@@ -17,8 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.EncryptActivity" />
-        <activity android:name=".ui.DecryptActivity" />
+        <activity
+            android:name=".ui.EncryptActivity"
+            android:label="@string/encryption" />
+        <activity
+            android:name=".ui.DecryptActivity"
+            android:label="@string/decryption" />
     </application>
 
 </manifest>
