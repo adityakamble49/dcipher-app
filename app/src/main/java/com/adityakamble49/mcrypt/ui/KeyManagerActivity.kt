@@ -9,8 +9,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.utils.RSAEncryption
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_key_manager.*
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * RSA Key Pair - Manager Activity
@@ -18,7 +21,11 @@ import timber.log.Timber
  * @author Aditya Kamble
  * @since 10/12/2017
  */
-class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
+class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
+        View.OnClickListener {
+
+    // Dagger Injected Fields
+    @Inject lateinit var rsaEncryption: RSAEncryption
 
     /*
      * Lifecycle Functions
@@ -27,6 +34,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_key_manager)
+
+        AndroidInjection.inject(this)
 
         bindView()
     }
@@ -41,6 +50,13 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener 
             android.R.id.home -> finish()
         }
         return true
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.import_key_fab -> Timber.i("Import Key")
+            R.id.generate_key_fab -> handleGenerateKey()
+        }
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, view: View, position: Int, id: Long) {
@@ -65,11 +81,19 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener 
         rsa_key_list.layoutManager = linearLayoutManager
         rsa_key_list.addItemDecoration(decorator)
         rsa_key_list.adapter = rsaKeyListAdapter
+
+        // Setup Key Manager FAB
+        import_key_fab.setOnClickListener(this)
+        generate_key_fab.setOnClickListener(this)
     }
 
     private fun showRSAKeyPairOptionMenu(view: View, position: Int) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.menuInflater.inflate(R.menu.menu_rsa_key_options, popupMenu.menu)
         popupMenu.show()
+    }
+
+    private fun handleGenerateKey() {
+        Timber.i("handleGenerateKey ${rsaEncryption.buildKeyPair()}")
     }
 }
