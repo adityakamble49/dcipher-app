@@ -1,6 +1,9 @@
 package com.adityakamble49.mcrypt.model
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import java.security.PrivateKey
+import java.security.PublicKey
 
 /**
  * RSA Key Model - contains pubic and private key to encrypt and decrypt data
@@ -10,8 +13,8 @@ import android.arch.persistence.room.Entity
  */
 @Entity(tableName = "rsa_key_pair")
 data class RSAKeyPair(
-        var id: Int,
+        @PrimaryKey(autoGenerate = true) var id: Int,
         var name: String,
-        var publicKey: String,
-        var privateKey: String
+        var publicKey: PublicKey,
+        var privateKey: PrivateKey
 )

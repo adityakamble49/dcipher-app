@@ -17,6 +17,11 @@ android {
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -68,6 +73,7 @@ dependencies {
 
     kapt mobileUiDependencies.daggerCompiler
     kapt mobileUiDependencies.daggerProcessor
+    kapt mobileUiDependencies.roomCompiler
 
     debugImplementation mobileUiDependencies.debugDb
 

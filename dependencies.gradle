@@ -45,6 +45,7 @@ ext {
             rxKotlin       : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
             roomRuntime    : "android.arch.persistence.room:runtime:${roomVersion}",
             roomRxJava     : "android.arch.persistence.room:rxjava2:${roomVersion}",
+            roomCompiler   : "android.arch.persistence.room:compiler:${roomVersion}",
             timber         : "com.jakewharton.timber:timber:${timberVersion}",
             getbaseFAB     : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
             debugDb        : "com.amitshekhar.android:debug-db:${debugDbVersion}"

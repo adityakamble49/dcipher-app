@@ -8,8 +8,12 @@ import android.support.v7.widget.PopupMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.RSAEncryption
+import com.adityakamble49.mcrypt.utils.updateDB
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_key_manager.*
 import timber.log.Timber
@@ -25,7 +29,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         View.OnClickListener {
 
     // Dagger Injected Fields
+    @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var rsaEncryption: RSAEncryption
+    @Inject lateinit var rsaKeyPairRepo: RSAKeyPairRepo
 
     /*
      * Lifecycle Functions
@@ -94,6 +100,10 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     }
 
     private fun handleGenerateKey() {
-        Timber.i("handleGenerateKey ${rsaEncryption.buildKeyPair()}")
+        val generatedKey = rsaEncryption.buildKeyPair()
+        val rsaKeyPair = RSAKeyPair(0, "key1", generatedKey.public, generatedKey.private)
+        appExecutors.updateDB {
+            rsaKeyPairRepo.insertRSAKeyPair(rsaKeyPair)
+        }
     }
 }
