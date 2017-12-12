@@ -20,6 +20,6 @@ abstract class ActivityBindingModule {
     abstract fun contributeMainActivity(): MainActivity
 
     @PerActivity
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [(KeyManagerActivityModule::class)])
     abstract fun contributeKeyManagerActivity(): KeyManagerActivity
 }

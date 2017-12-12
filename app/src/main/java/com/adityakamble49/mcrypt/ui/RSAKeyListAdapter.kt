@@ -17,14 +17,15 @@ class RSAKeyListAdapter : RecyclerView.Adapter<RSAKeyListAdapter.ViewHolder>() {
 
     lateinit var onItemClickListener: AdapterView.OnItemClickListener
 
-    private var rsaKeyPairList = emptyList<RSAKeyPair>()
+    var rsaKeyPairList = emptyList<RSAKeyPair>()
 
-    override fun getItemCount() = 10
+    override fun getItemCount() = rsaKeyPairList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
             parent.inflate(R.layout.rsa_key_item))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(
+            rsaKeyPairList[position])
 
     inner class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener {

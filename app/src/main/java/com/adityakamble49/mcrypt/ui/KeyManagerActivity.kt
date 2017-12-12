@@ -1,5 +1,7 @@
 package com.adityakamble49.mcrypt.ui
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -15,6 +17,7 @@ import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.RSAEncryption
 import com.adityakamble49.mcrypt.utils.updateDB
+import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_key_manager.*
@@ -34,6 +37,13 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var rsaEncryption: RSAEncryption
     @Inject lateinit var rsaKeyPairRepo: RSAKeyPairRepo
+    @Inject lateinit var keyManagerViewModelFactory: KeyManagerViewModelFactory
+
+    // ViewModel
+    private lateinit var keyManagerViewModel: KeyManagerViewModel
+
+    // Views
+    private lateinit var rsaKeyListAdapter: RSAKeyListAdapter
 
     /*
      * Lifecycle Functions
@@ -45,7 +55,14 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
         AndroidInjection.inject(this)
 
+        // Get Key Manager ViewModel from Factory
+        keyManagerViewModel = ViewModelProviders.of(this, keyManagerViewModelFactory).get(
+                KeyManagerViewModel::class.java)
+
         bindView()
+
+        // Observe RSA Key List
+        observeRSAKeyPairList()
     }
 
 
@@ -84,7 +101,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         // Setup RSA Key List RecyclerView
         val linearLayoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, linearLayoutManager.orientation)
-        val rsaKeyListAdapter = RSAKeyListAdapter()
+        rsaKeyListAdapter = RSAKeyListAdapter()
         rsaKeyListAdapter.onItemClickListener = this
         rsa_key_list.layoutManager = linearLayoutManager
         rsa_key_list.addItemDecoration(decorator)
@@ -101,6 +118,17 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         popupMenu.show()
     }
 
+    private fun observeRSAKeyPairList() {
+        keyManagerViewModel.rsaKeyPairList.observe(this, Observer<List<RSAKeyPair>> {
+            it?.let {
+                appExecutors.updateUI {
+                    rsaKeyListAdapter.rsaKeyPairList = it
+                    rsaKeyListAdapter.notifyDataSetChanged()
+                }
+            }
+        })
+    }
+
     private fun handleGenerateKey() {
         buildGenerateKeyDialog().show()
     }
@@ -109,11 +137,10 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .title("Generate Key Pair")
             .content("Generate Public and Private RSA Key Pair")
             .inputType(InputType.TYPE_CLASS_TEXT)
-            .input("Key Pair Name", "Default Key 1",
-                    MaterialDialog.InputCallback { _, input ->
-                        val keyName = input.toString()
-                        generateAndSaveKeyPair(keyName)
-                    }
+            .input("Key Pair Name", "Default Key 1", { _, input ->
+                val keyName = input.toString()
+                generateAndSaveKeyPair(keyName)
+            }
             ).build()
 
     private fun generateAndSaveKeyPair(keyName: String) {

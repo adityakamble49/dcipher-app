@@ -12,7 +12,12 @@ import com.adityakamble49.mcrypt.AppExecutors
  * Update database using DiskIO thread from AppExecutors
  */
 fun AppExecutors.updateDB(operation: () -> Unit) {
-    diskIO().execute {
-        operation()
-    }
+    diskIO().execute { operation() }
+}
+
+/**
+ * Update UI using Main thread from AppExecutors
+ */
+fun AppExecutors.updateUI(operation: () -> Unit) {
+    mainThread().execute { operation() }
 }
