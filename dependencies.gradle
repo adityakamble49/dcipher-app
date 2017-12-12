@@ -24,6 +24,7 @@ ext {
     daggerVersion = '2.12'
     timberVersion = '4.6.0'
     getbaseFABVersion = '1.10.1'
+    materialDialogsVersion = '0.9.6.0'
     debugDbVersion = '1.0.1'
 
     // Testing
@@ -48,6 +49,7 @@ ext {
             roomCompiler   : "android.arch.persistence.room:compiler:${roomVersion}",
             timber         : "com.jakewharton.timber:timber:${timberVersion}",
             getbaseFAB     : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
+            materialDialogs: "com.afollestad.material-dialogs:core:${materialDialogsVersion}",
             debugDb        : "com.amitshekhar.android:debug-db:${debugDbVersion}"
     ]
 

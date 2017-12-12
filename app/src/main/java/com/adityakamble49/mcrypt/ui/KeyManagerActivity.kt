@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PopupMenu
+import android.text.InputType
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +15,7 @@ import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.RSAEncryption
 import com.adityakamble49.mcrypt.utils.updateDB
+import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_key_manager.*
 import timber.log.Timber
@@ -100,8 +102,23 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     }
 
     private fun handleGenerateKey() {
+        buildGenerateKeyDialog().show()
+    }
+
+    private fun buildGenerateKeyDialog(): MaterialDialog = MaterialDialog.Builder(this)
+            .title("Generate Key Pair")
+            .content("Generate Public and Private RSA Key Pair")
+            .inputType(InputType.TYPE_CLASS_TEXT)
+            .input("Key Pair Name", "Default Key 1",
+                    MaterialDialog.InputCallback { _, input ->
+                        val keyName = input.toString()
+                        generateAndSaveKeyPair(keyName)
+                    }
+            ).build()
+
+    private fun generateAndSaveKeyPair(keyName: String) {
         val generatedKey = rsaEncryption.buildKeyPair()
-        val rsaKeyPair = RSAKeyPair(0, "key1", generatedKey.public, generatedKey.private)
+        val rsaKeyPair = RSAKeyPair(0, keyName, generatedKey.public, generatedKey.private)
         appExecutors.updateDB {
             rsaKeyPairRepo.insertRSAKeyPair(rsaKeyPair)
         }
