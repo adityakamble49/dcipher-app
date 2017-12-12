@@ -68,6 +68,8 @@ dependencies {
     implementation mobileUiDependencies.rxKotlin
     implementation mobileUiDependencies.roomRuntime
     implementation mobileUiDependencies.roomRxJava
+    implementation mobileUiDependencies.archRuntime
+    implementation mobileUiDependencies.archExtensions
     implementation mobileUiDependencies.timber
     implementation mobileUiDependencies.getbaseFAB
     implementation mobileUiDependencies.materialDialogs
@@ -75,6 +77,7 @@ dependencies {
     kapt mobileUiDependencies.daggerCompiler
     kapt mobileUiDependencies.daggerProcessor
     kapt mobileUiDependencies.roomCompiler
+    kapt mobileUiDependencies.archCompiler
 
     debugImplementation mobileUiDependencies.debugDb
 
