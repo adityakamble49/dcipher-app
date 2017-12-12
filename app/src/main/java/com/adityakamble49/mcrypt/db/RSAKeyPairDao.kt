@@ -1,5 +1,6 @@
 package com.adityakamble49.mcrypt.db
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
@@ -19,5 +20,5 @@ interface RSAKeyPairDao {
     fun insertRSAKeyPair(rsaKeyPair: RSAKeyPair)
 
     @Query("SELECT * FROM rsa_key_pair")
-    fun getRSAKeyPairList(): List<RSAKeyPair>
+    fun getRSAKeyPairList(): LiveData<List<RSAKeyPair>>
 }

@@ -1,5 +1,6 @@
 package com.adityakamble49.mcrypt.db
 
+import android.arch.lifecycle.LiveData
 import com.adityakamble49.mcrypt.di.scope.PerApplication
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import javax.inject.Inject
@@ -16,5 +17,5 @@ class RSAKeyPairRepo @Inject constructor(
         rsaKeyPairDao.insertRSAKeyPair(rsaKeyPair)
     }
 
-    fun getRSAKeyPairList(): List<RSAKeyPair> = rsaKeyPairDao.getRSAKeyPairList()
+    fun getRSAKeyPairList(): LiveData<List<RSAKeyPair>> = rsaKeyPairDao.getRSAKeyPairList()
 }
