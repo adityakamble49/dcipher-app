@@ -13,10 +13,7 @@ import android.view.View
 import android.widget.AdapterView
 import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
-import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.model.RSAKeyPair
-import com.adityakamble49.mcrypt.utils.RSAEncryption
-import com.adityakamble49.mcrypt.utils.updateDB
 import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
@@ -35,8 +32,6 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     // Dagger Injected Fields
     @Inject lateinit var appExecutors: AppExecutors
-    @Inject lateinit var rsaEncryption: RSAEncryption
-    @Inject lateinit var rsaKeyPairRepo: RSAKeyPairRepo
     @Inject lateinit var keyManagerViewModelFactory: KeyManagerViewModelFactory
 
     // ViewModel
@@ -139,15 +134,6 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .inputType(InputType.TYPE_CLASS_TEXT)
             .input("Key Pair Name", "Default Key 1", { _, input ->
                 val keyName = input.toString()
-                generateAndSaveKeyPair(keyName)
-            }
-            ).build()
-
-    private fun generateAndSaveKeyPair(keyName: String) {
-        val generatedKey = rsaEncryption.buildKeyPair()
-        val rsaKeyPair = RSAKeyPair(0, keyName, generatedKey.public, generatedKey.private)
-        appExecutors.updateDB {
-            rsaKeyPairRepo.insertRSAKeyPair(rsaKeyPair)
-        }
-    }
+                keyManagerViewModel.generateAndSaveKeyPair(keyName)
+            }).build()
 }
