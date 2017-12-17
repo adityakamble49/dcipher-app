@@ -1,6 +1,6 @@
 package com.adityakamble49.mcrypt.interactor
 
-import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter

@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.db
+package com.adityakamble49.mcrypt.cache.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase

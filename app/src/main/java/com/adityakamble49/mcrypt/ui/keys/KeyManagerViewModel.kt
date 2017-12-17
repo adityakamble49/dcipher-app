@@ -2,7 +2,7 @@ package com.adityakamble49.mcrypt.ui.keys
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.model.RSAKeyPair

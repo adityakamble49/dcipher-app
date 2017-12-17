@@ -3,8 +3,8 @@ package com.adityakamble49.mcrypt.di.module
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.adityakamble49.mcrypt.db.MCryptDatabase
-import com.adityakamble49.mcrypt.db.RSAKeyPairDao
+import com.adityakamble49.mcrypt.cache.db.MCryptDatabase
+import com.adityakamble49.mcrypt.cache.db.RSAKeyPairDao
 import com.adityakamble49.mcrypt.di.scope.PerApplication
 import dagger.Module
 import dagger.Provides

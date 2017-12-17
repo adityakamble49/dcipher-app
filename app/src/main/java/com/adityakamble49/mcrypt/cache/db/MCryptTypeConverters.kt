@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.db
+package com.adityakamble49.mcrypt.cache.db
 
 import android.arch.persistence.room.TypeConverter
 import com.adityakamble49.mcrypt.utils.Constants.Companion.ALGORITHM_RSA

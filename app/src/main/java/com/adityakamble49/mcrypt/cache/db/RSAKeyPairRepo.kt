@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.db
+package com.adityakamble49.mcrypt.cache.db
 
 import android.arch.lifecycle.LiveData
 import com.adityakamble49.mcrypt.di.scope.PerApplication

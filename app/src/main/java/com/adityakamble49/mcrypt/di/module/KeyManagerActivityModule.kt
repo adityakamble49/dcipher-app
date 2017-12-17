@@ -1,6 +1,6 @@
 package com.adityakamble49.mcrypt.di.module
 
-import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.di.scope.PerActivity
 import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
