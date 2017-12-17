@@ -133,23 +133,26 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     }
 
     private fun buildGenerateKeyDialog(): MaterialDialog = MaterialDialog.Builder(this)
-            .title("Generate Key Pair")
-            .content("Generate Public and Private RSA Key Pair")
+            .title(getString(R.string.generate_key_dialog_title))
+            .content(getString(R.string.generate_key_dialog_content))
             .inputType(InputType.TYPE_CLASS_TEXT)
-            .input("Key Pair Name", "Default Key 1", { _, input ->
+            .input(getString(R.string.generate_key_dialog_hint),
+                    getString(R.string.generate_key_dialog_prefill), { _, input ->
                 val keyName = input.toString()
                 keyManagerViewModel.generateAndSaveKeyPair(keyName, SaveKeyPairSubscriber())
             }).build()
 
     private inner class SaveKeyPairSubscriber : CompletableObserver {
         override fun onComplete() {
-            Toast.makeText(this@KeyManagerActivity, "RSA Key Generated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_generation_success),
+                    Toast.LENGTH_SHORT).show()
         }
 
         override fun onSubscribe(d: Disposable) {}
 
         override fun onError(e: Throwable) {
-            Toast.makeText(this@KeyManagerActivity, "RSA Key Name Present!",
+            Toast.makeText(this@KeyManagerActivity,
+                    getString(R.string.rsa_key_generation_failed_name_present),
                     Toast.LENGTH_SHORT).show()
         }
     }

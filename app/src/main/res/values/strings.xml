@@ -10,8 +10,17 @@
     <string name="decryption">Decryption</string>
     <string name="rsa_key_pair_name_placeholder">RSA Key Pair Name</string>
     <string name="key_manager">Key Manager</string>
+
     <string name="rsa_key_options">RSA Key Options</string>
     <string name="use">Use</string>
     <string name="share">Share</string>
     <string name="delete">Delete</string>
+
+    <string name="generate_key_dialog_title">Generate Key Pair</string>
+    <string name="generate_key_dialog_content">Generate Public and Private RSA Key Pair</string>
+    <string name="generate_key_dialog_hint">Key Pair Name</string>
+    <string name="generate_key_dialog_prefill">Default Key 1</string>
+
+    <string name="rsa_key_generation_success">RSA Key Generated</string>
+    <string name="rsa_key_generation_failed_name_present">RSA Key Name Present!</string>
 </resources>
