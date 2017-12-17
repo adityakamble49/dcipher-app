@@ -148,6 +148,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
         override fun onSubscribe(d: Disposable) {}
 
-        override fun onError(e: Throwable) {}
+        override fun onError(e: Throwable) {
+            Toast.makeText(this@KeyManagerActivity, "RSA Key Name Present!",
+                    Toast.LENGTH_SHORT).show()
+        }
     }
 }
