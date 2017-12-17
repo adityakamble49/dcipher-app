@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.ui
+package com.adityakamble49.mcrypt.ui.keys
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import com.adityakamble49.mcrypt.ui.DecryptActivity
 import com.adityakamble49.mcrypt.ui.EncryptActivity
-import com.adityakamble49.mcrypt.ui.KeyManagerActivity
+import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {

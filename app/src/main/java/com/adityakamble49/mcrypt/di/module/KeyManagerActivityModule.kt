@@ -2,7 +2,7 @@ package com.adityakamble49.mcrypt.di.module
 
 import com.adityakamble49.mcrypt.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.di.scope.PerActivity
-import com.adityakamble49.mcrypt.ui.KeyManagerViewModelFactory
+import com.adityakamble49.mcrypt.ui.keys.KeyManagerViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -18,5 +18,6 @@ class KeyManagerActivityModule {
     @Provides
     @PerActivity
     fun provideKeyManagerViewModelFactory(rsaKeyPairRepo: RSAKeyPairRepo):
-            KeyManagerViewModelFactory = KeyManagerViewModelFactory(rsaKeyPairRepo)
+            KeyManagerViewModelFactory = KeyManagerViewModelFactory(
+            rsaKeyPairRepo)
 }

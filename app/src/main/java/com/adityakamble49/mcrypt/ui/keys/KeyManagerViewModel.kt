@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.ui
+package com.adityakamble49.mcrypt.ui.keys
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel

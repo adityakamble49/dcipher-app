@@ -24,7 +24,7 @@
             android:name=".ui.DecryptActivity"
             android:label="@string/decryption" />
         <activity
-            android:name=".ui.KeyManagerActivity"
+            android:name=".ui.keys.KeyManagerActivity"
             android:label="@string/key_manager" />
     </application>
 
