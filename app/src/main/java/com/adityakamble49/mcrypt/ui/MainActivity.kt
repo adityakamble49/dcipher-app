@@ -1,5 +1,7 @@
 package com.adityakamble49.mcrypt.ui
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,10 +9,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.ui.common.CommonViewModel
+import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    // Dagger Injected Fields
+    @Inject lateinit var commonViewModelFactory: CommonViewModelFactory
+
+    // ViewModel
+    private lateinit var commonViewModel: CommonViewModel
+
 
     /*
      * Lifecycle Functions
@@ -20,7 +35,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        AndroidInjection.inject(this)
+
+        // Get Key Manager ViewModel from Factory
+        commonViewModel = ViewModelProviders.of(this, commonViewModelFactory).get(
+                CommonViewModel::class.java)
+
         bindView()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Observe RSA Key List
+        observeCurrentRSAKeyPair()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,4 +86,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         decrypt_button.setOnClickListener(this)
     }
 
+
+    private fun observeCurrentRSAKeyPair() {
+        commonViewModel.getCurrentRSAKeyPair().observe(this, Observer<RSAKeyPair> {
+            it?.let {
+                Timber.i(it.toString())
+            }
+        })
+    }
 }
