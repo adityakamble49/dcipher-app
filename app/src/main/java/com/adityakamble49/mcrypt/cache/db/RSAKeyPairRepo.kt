@@ -18,4 +18,6 @@ class RSAKeyPairRepo @Inject constructor(
     }
 
     fun getRSAKeyPairList(): LiveData<List<RSAKeyPair>> = rsaKeyPairDao.getRSAKeyPairList()
+
+    fun getRSAKeyPairById(id: Int): LiveData<RSAKeyPair> = rsaKeyPairDao.getRSAKeyPairById(id)
 }
