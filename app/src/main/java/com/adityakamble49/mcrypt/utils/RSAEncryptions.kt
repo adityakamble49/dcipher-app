@@ -1,6 +1,7 @@
 package com.adityakamble49.mcrypt.utils
 
 import com.adityakamble49.mcrypt.di.scope.PerApplication
+import com.adityakamble49.mcrypt.utils.Constants.Companion.ALGORITHM_RSA
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
@@ -17,7 +18,6 @@ import javax.inject.Inject
 @PerApplication
 class RSAEncryption @Inject constructor() {
 
-    private val ALGORITHM_RSA = "RSA"
     private val keySize = 2048
 
     fun buildKeyPair(): KeyPair {
