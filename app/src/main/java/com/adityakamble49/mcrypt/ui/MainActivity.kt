@@ -1,13 +1,12 @@
-package com.adityakamble49.mcrypt
+package com.adityakamble49.mcrypt.ui
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.adityakamble49.mcrypt.ui.DecryptActivity
-import com.adityakamble49.mcrypt.ui.EncryptActivity
+import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 

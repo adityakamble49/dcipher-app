@@ -1,7 +1,7 @@
 package com.adityakamble49.mcrypt.di.module
 
-import com.adityakamble49.mcrypt.MainActivity
 import com.adityakamble49.mcrypt.di.scope.PerActivity
+import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
