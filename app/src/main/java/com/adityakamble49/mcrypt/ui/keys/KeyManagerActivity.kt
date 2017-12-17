@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.cache.PreferenceHelper
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
@@ -36,6 +37,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     // Dagger Injected Fields
     @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var keyManagerViewModelFactory: KeyManagerViewModelFactory
+    @Inject lateinit var preferenceHelper: PreferenceHelper
 
     // ViewModel
     private lateinit var keyManagerViewModel: KeyManagerViewModel
@@ -114,6 +116,17 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private fun showRSAKeyPairOptionMenu(view: View, position: Int) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.menuInflater.inflate(R.menu.menu_rsa_key_options, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_use -> {
+                    val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
+                    preferenceHelper.currentRSAKeyId = currentKey.id
+                    Toast.makeText(this@KeyManagerActivity, "Key changed to ${currentKey.name}",
+                            Toast.LENGTH_SHORT).show()
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
         popupMenu.show()
     }
 
