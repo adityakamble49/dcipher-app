@@ -9,7 +9,6 @@ import com.adityakamble49.mcrypt.model.RSAKeyPair
 import io.reactivex.CompletableObserver
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -24,8 +23,10 @@ class KeyManagerViewModel @Inject constructor(
         private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase) : ViewModel() {
 
     val rsaKeyPairList: LiveData<List<RSAKeyPair>> = rsaKeyPairRepo.getRSAKeyPairList()
+    lateinit var saveRSAKeyObserver: CompletableObserver
 
-    fun generateAndSaveKeyPair(keyName: String) {
+    fun generateAndSaveKeyPair(keyName: String, observer: CompletableObserver) {
+        saveRSAKeyObserver = observer
         buildRSAKeyPairUseCase.execute(keyName).subscribe(BuildRSAKeyPairSubscriber())
     }
 
@@ -33,20 +34,10 @@ class KeyManagerViewModel @Inject constructor(
         override fun onSubscribe(d: Disposable) {}
 
         override fun onNext(t: RSAKeyPair) {
-            saveRSAKeyPairUseCase.execute(t).subscribe(SaveKeyPairSubscriber())
+            saveRSAKeyPairUseCase.execute(t).subscribe(saveRSAKeyObserver)
         }
 
         override fun onComplete() {}
-
-        override fun onError(e: Throwable) {}
-    }
-
-    inner class SaveKeyPairSubscriber : CompletableObserver {
-        override fun onComplete() {
-            Timber.i("RSA Key Saved")
-        }
-
-        override fun onSubscribe(d: Disposable) {}
 
         override fun onError(e: Throwable) {}
     }

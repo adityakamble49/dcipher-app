@@ -11,12 +11,15 @@ import android.text.InputType
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
+import io.reactivex.CompletableObserver
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_key_manager.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -77,6 +80,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             R.id.import_key_fab -> Timber.i("Import Key")
             R.id.generate_key_fab -> handleGenerateKey()
         }
+        if (key_manager_fab.isExpanded) key_manager_fab.collapse()
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, view: View, position: Int, id: Long) {
@@ -134,6 +138,16 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .inputType(InputType.TYPE_CLASS_TEXT)
             .input("Key Pair Name", "Default Key 1", { _, input ->
                 val keyName = input.toString()
-                keyManagerViewModel.generateAndSaveKeyPair(keyName)
+                keyManagerViewModel.generateAndSaveKeyPair(keyName, SaveKeyPairSubscriber())
             }).build()
+
+    private inner class SaveKeyPairSubscriber : CompletableObserver {
+        override fun onComplete() {
+            Toast.makeText(this@KeyManagerActivity, "RSA Key Generated", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onError(e: Throwable) {}
+    }
 }
