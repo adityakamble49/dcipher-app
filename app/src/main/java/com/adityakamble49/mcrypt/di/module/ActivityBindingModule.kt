@@ -1,6 +1,8 @@
 package com.adityakamble49.mcrypt.di.module
 
 import com.adityakamble49.mcrypt.di.scope.PerActivity
+import com.adityakamble49.mcrypt.ui.DecryptActivity
+import com.adityakamble49.mcrypt.ui.EncryptActivity
 import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import dagger.Module
@@ -18,6 +20,14 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = [(CommonActivityModule::class)])
     abstract fun contributeMainActivity(): MainActivity
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = [(CommonActivityModule::class)])
+    abstract fun contributeEncryptActivity(): EncryptActivity
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = [(CommonActivityModule::class)])
+    abstract fun contributeDecryptActivity(): DecryptActivity
 
     @PerActivity
     @ContributesAndroidInjector(modules = [(KeyManagerActivityModule::class)])
