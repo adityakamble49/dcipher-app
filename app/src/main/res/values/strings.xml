@@ -23,4 +23,6 @@
 
     <string name="rsa_key_generation_success">RSA Key Generated</string>
     <string name="rsa_key_generation_failed_name_present">RSA Key Name Present!</string>
+    <string name="loaded_key_placeholder">Loaded Key - Default Key 1</string>
+    <string name="change">Change</string>
 </resources>
