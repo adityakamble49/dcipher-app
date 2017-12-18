@@ -46,9 +46,11 @@
                 style="@style/LoadedRSAKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/rsa_key_options"
+                android:layout_toStartOf="@id/change_rsa_key"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/loaded_key_placeholder" />
 
             <Button
