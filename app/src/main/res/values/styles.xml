@@ -45,30 +45,16 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="LoadedRSAKeyLayoutDecrypt">
+    <style name="LoadedRSAKeyLayout">
         <item name="android:background">@color/light_black</item>
     </style>
 
-    <style name="LoadedRSAKeyDecrypt">
+    <style name="LoadedRSAKey">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="LoadedRSAKeyChangeDecrypt">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="LoadedRSAKeyLayoutEncrypt">
-        <item name="android:background">#EEE</item>
-    </style>
-
-    <style name="LoadedRSAKeyEncrypt">
-        <item name="android:textColor">@color/almost_black</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="LoadedRSAKeyChangeEncrypt">
+    <style name="LoadedRSAKeyChange">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">14sp</item>
     </style>

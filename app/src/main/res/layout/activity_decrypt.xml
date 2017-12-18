@@ -32,7 +32,7 @@
 
         <RelativeLayout
             android:id="@+id/loaded_key_layout"
-            style="@style/LoadedRSAKeyLayoutDecrypt"
+            style="@style/LoadedRSAKeyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/loaded_key"
-                style="@style/LoadedRSAKeyDecrypt"
+                style="@style/LoadedRSAKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -53,7 +53,7 @@
 
             <Button
                 android:id="@+id/change_rsa_key"
-                style="@style/LoadedRSAKeyChangeDecrypt"
+                style="@style/LoadedRSAKeyChange"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
