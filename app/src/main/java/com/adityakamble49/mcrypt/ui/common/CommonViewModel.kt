@@ -1,10 +1,9 @@
 package com.adityakamble49.mcrypt.ui.common
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import com.adityakamble49.mcrypt.cache.PreferenceHelper
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.interactor.GetCurrentRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.model.RSAKeyPair
+import io.reactivex.Observer
 import javax.inject.Inject
 
 /**
@@ -14,12 +13,9 @@ import javax.inject.Inject
  * @since 17/12/2017
  */
 class CommonViewModel @Inject constructor(
-        private val rsaKeyPairRepo: RSAKeyPairRepo,
-        private val preferenceHelper: PreferenceHelper) : ViewModel() {
+        private val getCurrentRSAKeyPairUseCase: GetCurrentRSAKeyPairUseCase) : ViewModel() {
 
-    lateinit var rsaKeyPair: LiveData<RSAKeyPair>
-
-    fun getCurrentRSAKeyPair(): RSAKeyPair {
-        return rsaKeyPairRepo.getRSAKeyPairById(preferenceHelper.currentRSAKeyId)
+    fun requestCurrentRSAKeyPair(observer: Observer<RSAKeyPair>) {
+        getCurrentRSAKeyPairUseCase.execute().subscribe(observer)
     }
 }

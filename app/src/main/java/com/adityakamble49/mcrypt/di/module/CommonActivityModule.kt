@@ -1,8 +1,7 @@
 package com.adityakamble49.mcrypt.di.module
 
-import com.adityakamble49.mcrypt.cache.PreferenceHelper
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.di.scope.PerActivity
+import com.adityakamble49.mcrypt.interactor.GetCurrentRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -18,7 +17,6 @@ class CommonActivityModule {
 
     @Provides
     @PerActivity
-    fun provideCommonViewModelFactory(rsaKeyPairRepo: RSAKeyPairRepo,
-                                      preferenceHelper: PreferenceHelper):
-            CommonViewModelFactory = CommonViewModelFactory(rsaKeyPairRepo, preferenceHelper)
+    fun provideCommonViewModelFactory(getCurrentRSAKeyPairUseCase: GetCurrentRSAKeyPairUseCase):
+            CommonViewModelFactory = CommonViewModelFactory(getCurrentRSAKeyPairUseCase)
 }
