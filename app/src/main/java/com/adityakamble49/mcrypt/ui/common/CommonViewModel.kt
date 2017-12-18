@@ -19,7 +19,7 @@ class CommonViewModel @Inject constructor(
 
     lateinit var rsaKeyPair: LiveData<RSAKeyPair>
 
-    fun getCurrentRSAKeyPair(): LiveData<RSAKeyPair> {
+    fun getCurrentRSAKeyPair(): RSAKeyPair {
         return rsaKeyPairRepo.getRSAKeyPairById(preferenceHelper.currentRSAKeyId)
     }
 }
