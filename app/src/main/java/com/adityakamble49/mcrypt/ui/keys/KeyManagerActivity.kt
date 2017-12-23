@@ -118,12 +118,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         popupMenu.menuInflater.inflate(R.menu.menu_rsa_key_options, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_use -> {
-                    val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
-                    preferenceHelper.currentRSAKeyId = currentKey.id
-                    Toast.makeText(this@KeyManagerActivity, "Key changed to ${currentKey.name}",
-                            Toast.LENGTH_SHORT).show()
-                }
+                R.id.action_use -> handleUseKey(position)
             }
             return@setOnMenuItemClickListener true
         }
@@ -169,5 +164,12 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
                     getString(R.string.rsa_key_generation_failed_name_present),
                     Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun handleUseKey(position: Int) {
+        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
+        preferenceHelper.currentRSAKeyId = currentKey.id
+        Toast.makeText(this@KeyManagerActivity, "Key changed to ${currentKey.name}",
+                Toast.LENGTH_SHORT).show()
     }
 }
