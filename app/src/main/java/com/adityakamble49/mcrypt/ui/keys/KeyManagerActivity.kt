@@ -149,6 +149,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .title(getString(R.string.generate_key_dialog_title))
             .content(getString(R.string.generate_key_dialog_content))
             .inputType(InputType.TYPE_CLASS_TEXT)
+            .inputRange(1, 50)
             .input(getString(R.string.generate_key_dialog_hint),
                     getString(R.string.generate_key_dialog_prefill), { _, input ->
                 val keyName = input.toString()
