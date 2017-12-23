@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.cache.exception.RSAKeyPairNotFoundException
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
@@ -14,6 +15,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_decrypt.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class DecryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -23,6 +25,9 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
 
     // ViewModel
     private lateinit var commonViewModel: CommonViewModel
+
+    // Other Fields
+    var currentRSAKeyPair: RSAKeyPair? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,12 +71,19 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
         override fun onSubscribe(d: Disposable) {}
 
         override fun onNext(t: RSAKeyPair) {
+            currentRSAKeyPair = t
             val loadedKey = getString(R.string.loaded_key_placeholder, t.name)
             loaded_key.text = loadedKey
         }
 
         override fun onComplete() {}
 
-        override fun onError(e: Throwable) {}
+        override fun onError(e: Throwable) {
+            if (e is RSAKeyPairNotFoundException) {
+                currentRSAKeyPair = null
+                val loadedKey = getString(R.string.loaded_key_placeholder, "No Key Loaded")
+                loaded_key.text = loadedKey
+            }
+        }
     }
 }
