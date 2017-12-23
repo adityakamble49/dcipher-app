@@ -23,5 +23,5 @@ interface RSAKeyPairDao {
     fun getRSAKeyPairList(): LiveData<List<RSAKeyPair>>
 
     @Query("SELECT * FROM rsa_key_pair WHERE id= :id")
-    fun getRSAKeyPairById(id: Int): RSAKeyPair
+    fun getRSAKeyPairById(id: Int): RSAKeyPair?
 }
