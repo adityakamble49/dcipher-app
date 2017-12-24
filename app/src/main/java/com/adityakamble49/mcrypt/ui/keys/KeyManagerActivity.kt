@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.PreferenceHelper
+import com.adityakamble49.mcrypt.interactor.RSAKeyPairInUseException
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
@@ -123,6 +124,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             when (it.itemId) {
                 R.id.action_use -> handleUseKey(position)
                 R.id.action_share -> handleShareKey(position)
+                R.id.action_delete -> handleDeleteKey(position)
             }
             return@setOnMenuItemClickListener true
         }
@@ -198,5 +200,27 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         }
 
         override fun onError(e: Throwable) {}
+    }
+
+    private fun handleDeleteKey(position: Int) {
+        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
+        keyManagerViewModel.deleteRSAKeyPair(currentKey, DeleteKeyPairSubscriber())
+    }
+
+    private inner class DeleteKeyPairSubscriber : CompletableObserver {
+
+        override fun onComplete() {
+            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_delete_success),
+                    Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onError(e: Throwable) {
+            if (e is RSAKeyPairInUseException) {
+                Toast.makeText(this@KeyManagerActivity,
+                        getString(R.string.rsa_key_delete_failed_in_use), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

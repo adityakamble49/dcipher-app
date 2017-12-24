@@ -25,4 +25,6 @@
     <string name="rsa_key_generation_failed_name_present">RSA Key Name Present!</string>
     <string name="loaded_key_placeholder">Loaded Key - %1$s</string>
     <string name="change">Change</string>
+    <string name="rsa_key_delete_success">RSA Key deleted</string>
+    <string name="rsa_key_delete_failed_in_use">RSA Key in Use! Can\'t be deleted</string>
 </resources>
