@@ -38,7 +38,7 @@ class FileStorageHelper @Inject constructor(
         return fileUri
     }
 
-    private fun readObjectFromFile(filePath: String, fileName: String): Any {
+    private fun readObjectFromFile(uri: Uri): Any {
         if (!isExternalStorageAvailable()) {
             throw ExternalStorageException("External Storage not Available")
         }
@@ -46,8 +46,7 @@ class FileStorageHelper @Inject constructor(
             throw ExternalStorageException("External Storage read only")
         }
 
-        val file = File(appContext.getExternalFilesDir(filePath), fileName)
-        val fis = FileInputStream(file)
+        val fis = appContext.contentResolver.openInputStream(uri)
         val ois = ObjectInputStream(fis)
         val fetchedObject = ois.readObject()
         ois.close()
@@ -60,9 +59,8 @@ class FileStorageHelper @Inject constructor(
         return writeObjectToFile(DIR_MCRYPT_KEYS, fileName, rsaKeyPair)
     }
 
-    fun readRSAKeyFromFile(rsaKeyPairName: String): RSAKeyPair {
-        val fileName = "$rsaKeyPairName.mck"
-        return readObjectFromFile(DIR_MCRYPT_KEYS, fileName) as RSAKeyPair
+    fun fetchRSAKeyPairFromFile(uri: Uri): RSAKeyPair {
+        return readObjectFromFile(uri) as RSAKeyPair
     }
 
     private fun isExternalStorageReadOnly(): Boolean {
