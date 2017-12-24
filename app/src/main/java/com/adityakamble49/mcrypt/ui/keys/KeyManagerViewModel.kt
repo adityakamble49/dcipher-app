@@ -4,10 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.net.Uri
 import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
-import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
-import com.adityakamble49.mcrypt.interactor.DeleteRSAKeyPairUseCase
-import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairToFileUseCase
-import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.*
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import io.reactivex.CompletableObserver
 import io.reactivex.Observer
@@ -26,7 +23,8 @@ class KeyManagerViewModel @Inject constructor(
         private val buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
         private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
         private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
-        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase) : ViewModel() {
+        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase,
+        private val getRSAKeyPairFromFileUseCase: GetRSAKeyPairFromFileUseCase) : ViewModel() {
 
     val rsaKeyPairList: LiveData<List<RSAKeyPair>> = rsaKeyPairRepo.getRSAKeyPairList()
     lateinit var saveRSAKeyObserver: CompletableObserver
@@ -36,12 +34,20 @@ class KeyManagerViewModel @Inject constructor(
         buildRSAKeyPairUseCase.execute(keyName).subscribe(BuildRSAKeyPairSubscriber())
     }
 
+    fun saveRSAKeyPairToDb(rsaKeyPair: RSAKeyPair, observer: CompletableObserver) {
+        saveRSAKeyPairUseCase.execute(rsaKeyPair).subscribe(observer)
+    }
+
     fun saveRSAKeyPairToFile(rsaKeyPair: RSAKeyPair, observer: SingleObserver<Uri>) {
         saveRSAKeyPairToFileUseCase.execute(rsaKeyPair).subscribe(observer)
     }
 
     fun deleteRSAKeyPair(rsaKeyPair: RSAKeyPair, observer: CompletableObserver) {
         deleteRSAKeyPairUseCase.execute(rsaKeyPair).subscribe(observer)
+    }
+
+    fun getRSAKeyPairFromFile(uri: Uri, observer: SingleObserver<RSAKeyPair>) {
+        getRSAKeyPairFromFileUseCase.execute(uri).subscribe(observer)
     }
 
     inner class BuildRSAKeyPairSubscriber : Observer<RSAKeyPair> {

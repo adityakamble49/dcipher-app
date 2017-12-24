@@ -3,10 +3,7 @@ package com.adityakamble49.mcrypt.ui.keys
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
-import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
-import com.adityakamble49.mcrypt.interactor.DeleteRSAKeyPairUseCase
-import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairToFileUseCase
-import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.*
 
 /**
  * KeyManager ViewModel Factory
@@ -19,14 +16,15 @@ class KeyManagerViewModelFactory(
         private val buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
         private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
         private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
-        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase) :
+        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase,
+        private val getRSAKeyPairFromFileUseCase: GetRSAKeyPairFromFileUseCase) :
         ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(KeyManagerViewModel::class.java)) {
             return KeyManagerViewModel(rsaKeyPairRepo, buildRSAKeyPairUseCase,
                     saveRSAKeyPairUseCase, saveRSAKeyPairToFileUseCase,
-                    deleteRSAKeyPairUseCase) as T
+                    deleteRSAKeyPairUseCase, getRSAKeyPairFromFileUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }
