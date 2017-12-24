@@ -21,10 +21,11 @@
     <string name="generate_key_dialog_hint">Key Pair Name</string>
     <string name="generate_key_dialog_prefill">Default Key 1</string>
 
-    <string name="rsa_key_generation_success">RSA Key Generated</string>
+    <string name="rsa_key_added_success">RSA Key Added</string>
     <string name="rsa_key_generation_failed_name_present">RSA Key Name Present!</string>
     <string name="loaded_key_placeholder">Loaded Key - %1$s</string>
     <string name="change">Change</string>
     <string name="rsa_key_delete_success">RSA Key deleted</string>
     <string name="rsa_key_delete_failed_in_use">RSA Key in Use! Can\'t be deleted</string>
+    <string name="rsa_key_from_file_failed_invalid">Invalid Key</string>
 </resources>

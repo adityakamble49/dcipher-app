@@ -1,5 +1,6 @@
 package com.adityakamble49.mcrypt.ui.keys
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -26,7 +27,6 @@ import io.reactivex.CompletableObserver
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_key_manager.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -48,6 +48,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     // Views
     private lateinit var rsaKeyListAdapter: RSAKeyListAdapter
+
+    // Other Fields
+    val REQ_FILE_CHOOSER = 901
 
     /*
      * Lifecycle Functions
@@ -83,7 +86,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.import_key_fab -> Timber.i("Import Key")
+            R.id.import_key_fab -> handleImportKey()
             R.id.generate_key_fab -> handleGenerateKey()
         }
         if (key_manager_fab.isExpanded) key_manager_fab.collapse()
@@ -91,6 +94,21 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     override fun onItemClick(adapterView: AdapterView<*>?, view: View, position: Int, id: Long) {
         showRSAKeyPairOptionMenu(view, position)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQ_FILE_CHOOSER -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.let {
+                        val uri = it.data
+                        keyManagerViewModel.getRSAKeyPairFromFile(uri,
+                                GetRSAKeyPairFromFileSubscriber())
+                    }
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 
@@ -142,6 +160,29 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         })
     }
 
+    private fun handleImportKey() {
+        openFileDialog()
+    }
+
+    private fun openFileDialog() {
+        val openFileIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        openFileIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        openFileIntent.type = "*/*"
+        startActivityForResult(openFileIntent, REQ_FILE_CHOOSER)
+    }
+
+    private inner class GetRSAKeyPairFromFileSubscriber : SingleObserver<RSAKeyPair> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(t: RSAKeyPair) {
+            keyManagerViewModel.saveRSAKeyPairToDb(t, SaveKeyPairSubscriber())
+        }
+
+        override fun onError(e: Throwable) {
+            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun handleGenerateKey() {
         buildGenerateKeyDialog().show()
     }
@@ -159,7 +200,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     private inner class SaveKeyPairSubscriber : CompletableObserver {
         override fun onComplete() {
-            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_generation_success),
+            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_added_success),
                     Toast.LENGTH_SHORT).show()
         }
 
