@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:hint="@string/encrypt_text_hint"
-        android:inputType="text" />
+        android:inputType="textMultiLine" />
 
     <RelativeLayout
         android:layout_width="match_parent"
