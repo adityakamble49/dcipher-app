@@ -21,7 +21,9 @@ import com.adityakamble49.mcrypt.cache.PreferenceHelper
 import com.adityakamble49.mcrypt.interactor.RSAKeyPairInUseException
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 import com.adityakamble49.mcrypt.ui.MainActivity
+import com.adityakamble49.mcrypt.utils.hasSpecialChar
 import com.adityakamble49.mcrypt.utils.updateUI
+import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import io.reactivex.CompletableObserver
@@ -246,10 +248,24 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .inputType(InputType.TYPE_CLASS_TEXT)
             .inputRange(1, 50)
             .input(getString(R.string.generate_key_dialog_hint),
-                    getString(R.string.generate_key_dialog_prefill), { _, input ->
+                    getString(R.string.generate_key_dialog_prefill), { dialog, input ->
                 val keyName = input.toString()
-                keyManagerViewModel.generateAndSaveKeyPair(keyName, SaveKeyPairSubscriber())
-            }).build()
+                if (keyName.hasSpecialChar()) {
+                    dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
+                    dialog.setContent(getString(R.string.generate_key_dialog_special_char_warning))
+                } else {
+                    dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
+                    dialog.setContent(getString(R.string.generate_key_dialog_content))
+                }
+            })
+            .onPositive { dialog, _ ->
+                dialog.inputEditText?.text.let {
+                    keyManagerViewModel.generateAndSaveKeyPair(it.toString(),
+                            SaveKeyPairSubscriber())
+                }
+            }
+            .alwaysCallInputCallback()
+            .build()
 
     private inner class SaveKeyPairSubscriber : CompletableObserver {
         override fun onComplete() {
