@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairToFileUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
 
 /**
@@ -15,12 +16,14 @@ import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
 class KeyManagerViewModelFactory(
         private val rsaKeyPairRepo: RSAKeyPairRepo,
         private val buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
-        private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase) : ViewModelProvider.Factory {
+        private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
+        private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase) :
+        ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(KeyManagerViewModel::class.java)) {
             return KeyManagerViewModel(rsaKeyPairRepo, buildRSAKeyPairUseCase,
-                    saveRSAKeyPairUseCase) as T
+                    saveRSAKeyPairUseCase, saveRSAKeyPairToFileUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }
