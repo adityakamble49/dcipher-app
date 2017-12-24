@@ -1,10 +1,7 @@
 package com.adityakamble49.mcrypt.cache.db
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.adityakamble49.mcrypt.model.RSAKeyPair
 
 /**
@@ -24,4 +21,7 @@ interface RSAKeyPairDao {
 
     @Query("SELECT * FROM rsa_key_pair WHERE id= :id")
     fun getRSAKeyPairById(id: Int): RSAKeyPair?
+
+    @Delete
+    fun deleteRSAKeyPair(rsaKeyPair: RSAKeyPair)
 }
