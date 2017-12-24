@@ -2,6 +2,8 @@ package com.adityakamble49.mcrypt.ui.keys
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -20,6 +22,7 @@ import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import io.reactivex.CompletableObserver
+import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_key_manager.*
 import timber.log.Timber
@@ -119,6 +122,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_use -> handleUseKey(position)
+                R.id.action_share -> handleShareKey(position)
             }
             return@setOnMenuItemClickListener true
         }
@@ -171,5 +175,28 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         preferenceHelper.currentRSAKeyId = currentKey.id
         Toast.makeText(this@KeyManagerActivity, "Key changed to ${currentKey.name}",
                 Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleShareKey(position: Int) {
+        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
+        keyManagerViewModel.saveRSAKeyPairToFile(currentKey, SaveRSAKeyPairToFileSubscriber())
+    }
+
+    private fun createShareIntent(fileUri: Uri) {
+        val shareKeyIntent = Intent()
+        shareKeyIntent.action = Intent.ACTION_SEND
+        shareKeyIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+        shareKeyIntent.type = "*/*"
+        startActivity(Intent.createChooser(shareKeyIntent, "Share Key"))
+    }
+
+    private inner class SaveRSAKeyPairToFileSubscriber : SingleObserver<Uri> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(t: Uri) {
+            createShareIntent(t)
+        }
+
+        override fun onError(e: Throwable) {}
     }
 }
