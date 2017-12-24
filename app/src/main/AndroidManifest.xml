@@ -27,7 +27,8 @@
         <activity
             android:name=".ui.keys.KeyManagerActivity"
             android:label="@string/key_manager"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.MainActivity">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />

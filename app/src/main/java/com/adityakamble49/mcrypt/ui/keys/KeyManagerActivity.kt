@@ -20,6 +20,7 @@ import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.PreferenceHelper
 import com.adityakamble49.mcrypt.interactor.RSAKeyPairInUseException
 import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
@@ -51,6 +52,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     // Other Fields
     val REQ_FILE_CHOOSER = 901
+    var isFromFileIntent = false
 
     /*
      * Lifecycle Functions
@@ -75,6 +77,10 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         handleIntentExtras()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startMainIntent()
+    }
 
     /*
      * Listener Functions
@@ -82,7 +88,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> onBackPressed()
         }
         return true
     }
@@ -167,6 +173,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         val uri: Uri? = intent.data
         uri?.let {
             keyManagerViewModel.getRSAKeyPairFromFile(it, GetRSAKeyPairFromFileSubscriber())
+            isFromFileIntent = true
         }
     }
 
@@ -194,6 +201,16 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             }
             .cancelable(false)
             .build()
+
+
+    private fun startMainIntent() {
+        if (isFromFileIntent) {
+            val mainIntent = Intent(this, MainActivity::class.java)
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(mainIntent)
+        }
+        finish()
+    }
 
     private fun handleImportKey() {
         openFileDialog()
