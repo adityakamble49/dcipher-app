@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.net.Uri
 import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.DeleteRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairToFileUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.model.RSAKeyPair
@@ -24,7 +25,8 @@ class KeyManagerViewModel @Inject constructor(
         private val rsaKeyPairRepo: RSAKeyPairRepo,
         private val buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
         private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
-        private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase) : ViewModel() {
+        private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
+        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase) : ViewModel() {
 
     val rsaKeyPairList: LiveData<List<RSAKeyPair>> = rsaKeyPairRepo.getRSAKeyPairList()
     lateinit var saveRSAKeyObserver: CompletableObserver
@@ -36,6 +38,10 @@ class KeyManagerViewModel @Inject constructor(
 
     fun saveRSAKeyPairToFile(rsaKeyPair: RSAKeyPair, observer: SingleObserver<Uri>) {
         saveRSAKeyPairToFileUseCase.execute(rsaKeyPair).subscribe(observer)
+    }
+
+    fun deleteRSAKeyPair(rsaKeyPair: RSAKeyPair, observer: CompletableObserver) {
+        deleteRSAKeyPairUseCase.execute(rsaKeyPair).subscribe(observer)
     }
 
     inner class BuildRSAKeyPairSubscriber : Observer<RSAKeyPair> {

@@ -3,6 +3,7 @@ package com.adityakamble49.mcrypt.di.module
 import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
 import com.adityakamble49.mcrypt.di.scope.PerActivity
 import com.adityakamble49.mcrypt.interactor.BuildRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.DeleteRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairToFileUseCase
 import com.adityakamble49.mcrypt.interactor.SaveRSAKeyPairUseCase
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerViewModelFactory
@@ -23,8 +24,9 @@ class KeyManagerActivityModule {
     fun provideKeyManagerViewModelFactory(rsaKeyPairRepo: RSAKeyPairRepo,
                                           buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
                                           saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
-                                          saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase):
+                                          saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
+                                          deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase):
             KeyManagerViewModelFactory = KeyManagerViewModelFactory(
             rsaKeyPairRepo, buildRSAKeyPairUseCase, saveRSAKeyPairUseCase,
-            saveRSAKeyPairToFileUseCase)
+            saveRSAKeyPairToFileUseCase, deleteRSAKeyPairUseCase)
 }
