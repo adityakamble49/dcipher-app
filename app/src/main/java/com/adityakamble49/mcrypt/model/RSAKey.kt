@@ -3,6 +3,7 @@ package com.adityakamble49.mcrypt.model
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
+import java.io.Serializable
 import java.security.PrivateKey
 import java.security.PublicKey
 
@@ -18,5 +19,4 @@ data class RSAKeyPair(
         @PrimaryKey(autoGenerate = true) var id: Int,
         var name: String,
         var publicKey: PublicKey,
-        var privateKey: PrivateKey
-)
+        var privateKey: PrivateKey) : Serializable
