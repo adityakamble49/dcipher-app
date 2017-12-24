@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.adityakamble49.mcrypt">
 
     <application
@@ -25,7 +26,22 @@
             android:label="@string/decryption" />
         <activity
             android:name=".ui.keys.KeyManagerActivity"
-            android:label="@string/key_manager" />
+            android:label="@string/key_manager"
+            android:launchMode="singleTask">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.mck" />
+                <data
+                    android:mimeType="application/mck"
+                    android:pathPattern=".*\\.mck" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

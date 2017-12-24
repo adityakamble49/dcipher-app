@@ -28,4 +28,9 @@
     <string name="rsa_key_delete_success">RSA Key deleted</string>
     <string name="rsa_key_delete_failed_in_use">RSA Key in Use! Can\'t be deleted</string>
     <string name="rsa_key_from_file_failed_invalid">Invalid Key</string>
+
+    <string name="import_key_dialog_title">Import Key?</string>
+    <string name="import_key_dialog_content">Import %1$s key?</string>
+    <string name="import_key_dialog_positive_text">Import</string>
+    <string name="import_key_dialog_negative_text">No</string>
 </resources>

@@ -70,6 +70,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
         // Observe RSA Key List
         observeRSAKeyPairList()
+
+        // Get intent extras
+        handleIntentExtras()
     }
 
 
@@ -103,7 +106,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
                     data?.let {
                         val uri = it.data
                         keyManagerViewModel.getRSAKeyPairFromFile(uri,
-                                GetRSAKeyPairFromFileSubscriber())
+                                RSAKeyPairFileToDBSubscriber())
                     }
                 }
             }
@@ -160,6 +163,38 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         })
     }
 
+    private fun handleIntentExtras() {
+        val uri: Uri? = intent.data
+        uri?.let {
+            keyManagerViewModel.getRSAKeyPairFromFile(it, GetRSAKeyPairFromFileSubscriber())
+        }
+    }
+
+    private inner class GetRSAKeyPairFromFileSubscriber : SingleObserver<RSAKeyPair> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(t: RSAKeyPair) {
+            buildImportFromIntentFileDialog(t).show()
+        }
+
+        override fun onError(e: Throwable) {
+            Toast.makeText(this@KeyManagerActivity,
+                    getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun buildImportFromIntentFileDialog(rsaKeyPair: RSAKeyPair):
+            MaterialDialog = MaterialDialog.Builder(this)
+            .title(getString(R.string.import_key_dialog_title))
+            .content(getString(R.string.import_key_dialog_content, rsaKeyPair.name))
+            .positiveText(getString(R.string.import_key_dialog_positive_text))
+            .negativeText(getString(R.string.import_key_dialog_negative_text))
+            .onPositive { _, _ ->
+                keyManagerViewModel.saveRSAKeyPairToDb(rsaKeyPair, SaveKeyPairSubscriber())
+            }
+            .cancelable(false)
+            .build()
+
     private fun handleImportKey() {
         openFileDialog()
     }
@@ -171,7 +206,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         startActivityForResult(openFileIntent, REQ_FILE_CHOOSER)
     }
 
-    private inner class GetRSAKeyPairFromFileSubscriber : SingleObserver<RSAKeyPair> {
+    private inner class RSAKeyPairFileToDBSubscriber : SingleObserver<RSAKeyPair> {
         override fun onSubscribe(d: Disposable) {}
 
         override fun onSuccess(t: RSAKeyPair) {
@@ -179,7 +214,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         }
 
         override fun onError(e: Throwable) {
-            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@KeyManagerActivity,
+                    getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
         }
     }
 
