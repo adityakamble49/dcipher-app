@@ -15,11 +15,13 @@ import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
+import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_encrypt.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class EncryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -76,6 +78,7 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_reset -> handleResetEncryption()
+            R.id.action_share -> handleShareEncryption()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -157,4 +160,18 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         input_text.setBackgroundResource(R.color.white)
         input_text.setTextColor(ContextCompat.getColor(this, R.color.almost_black))
     }
+
+    private fun handleShareEncryption() {
+        if (!isEncrypted) {
+            Toast.makeText(this, "Text not encrypted", Toast.LENGTH_SHORT).show()
+            return
+        }
+        buildShareWithDialog().show()
+    }
+
+    private fun buildShareWithDialog() = MaterialDialog.Builder(this)
+            .title("Share encrypted text with")
+            .items(R.array.share_with_options)
+            .itemsCallback { _, _, position, _ -> Timber.i(position.toString()) }
+            .build()
 }
