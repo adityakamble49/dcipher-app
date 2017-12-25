@@ -34,4 +34,6 @@
     <string name="import_key_dialog_positive_text">Import</string>
     <string name="import_key_dialog_negative_text">No</string>
     <string name="generate_key_dialog_special_char_warning">Special characters not allowed</string>
+
+    <string name="reset">Reset</string>
 </resources>

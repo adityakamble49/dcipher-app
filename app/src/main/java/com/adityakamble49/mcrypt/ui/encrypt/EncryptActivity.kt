@@ -2,9 +2,11 @@ package com.adityakamble49.mcrypt.ui.encrypt
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.adityakamble49.mcrypt.R
@@ -32,6 +34,7 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
     // Other Fields
     var currentEncryptionKey: EncryptionKey? = null
+    var isEncrypted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,11 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         commonViewModel.requestCurrentEncryptionKey(GetCurrentEncryptionKeySubscriber())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_encrypt, menu)
+        return true
+    }
+
     /*
      * Listener Functions
      */
@@ -63,6 +71,14 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
             R.id.change_encryption_key -> startActivity(
                     Intent(this, KeyManagerActivity::class.java))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_reset -> handleResetEncryption()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     /*
@@ -95,8 +111,13 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleEncryptText() {
+        if (isEncrypted) {
+            Toast.makeText(this, "Text Already Encrypted", Toast.LENGTH_SHORT).show()
+            return
+        }
         if (currentEncryptionKey == null) {
             Toast.makeText(this, "Key not loaded", Toast.LENGTH_SHORT).show()
+            return
         }
         val textToEncrypt = input_text.text.toString()
         currentEncryptionKey?.let {
@@ -108,15 +129,28 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         override fun onSubscribe(d: Disposable) {}
 
         override fun onSuccess(encryptedText: String) {
-            input_text.setText(encryptedText)
-            input_text.isEnabled = false
-            input_text.setBackgroundResource(R.color.light_black)
-            input_text.setTextColor(Color.WHITE)
+            handleEncryptedText(encryptedText)
             Toast.makeText(this@EncryptActivity, "Encryption Successful", Toast.LENGTH_SHORT).show()
         }
 
         override fun onError(e: Throwable) {
             Toast.makeText(this@EncryptActivity, "Encryption Failed", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun handleEncryptedText(encryptedText: String) {
+        isEncrypted = true
+        input_text.setText(encryptedText)
+        input_text.isEnabled = false
+        input_text.setBackgroundResource(R.color.light_black)
+        input_text.setTextColor(ContextCompat.getColor(this, R.color.white))
+    }
+
+    private fun handleResetEncryption() {
+        isEncrypted = false
+        input_text.setText("")
+        input_text.isEnabled = true
+        input_text.setBackgroundResource(R.color.white)
+        input_text.setTextColor(ContextCompat.getColor(this, R.color.almost_black))
     }
 }
