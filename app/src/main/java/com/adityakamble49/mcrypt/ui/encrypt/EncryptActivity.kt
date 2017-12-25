@@ -1,4 +1,4 @@
-package com.adityakamble49.mcrypt.ui
+package com.adityakamble49.mcrypt.ui.encrypt
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -13,9 +13,9 @@ import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
-import com.adityakamble49.mcrypt.utils.EncryptionManager
 import dagger.android.AndroidInjection
 import io.reactivex.Observer
+import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_encrypt.*
 import javax.inject.Inject
@@ -24,10 +24,11 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
     // Dagger Injected Fields
     @Inject lateinit var commonViewModelFactory: CommonViewModelFactory
-    @Inject lateinit var encryptionManager: EncryptionManager
+    @Inject lateinit var encryptViewModelFactory: EncryptViewModelFactory
 
     // ViewModel
     private lateinit var commonViewModel: CommonViewModel
+    private lateinit var encryptViewModel: EncryptViewModel
 
     // Other Fields
     var currentEncryptionKey: EncryptionKey? = null
@@ -41,6 +42,8 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         // Get Key Manager ViewModel from Factory
         commonViewModel = ViewModelProviders.of(this, commonViewModelFactory).get(
                 CommonViewModel::class.java)
+        encryptViewModel = ViewModelProviders.of(this, encryptViewModelFactory).get(
+                EncryptViewModel::class.java)
 
         bindView()
     }
@@ -57,7 +60,8 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.encrypt_button -> handleEncryptText()
-            R.id.change_encryption_key -> startActivity(Intent(this, KeyManagerActivity::class.java))
+            R.id.change_encryption_key -> startActivity(
+                    Intent(this, KeyManagerActivity::class.java))
         }
     }
 
@@ -96,11 +100,23 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         }
         val textToEncrypt = input_text.text.toString()
         currentEncryptionKey?.let {
-            val encryptedText = encryptionManager.encryptText(it, textToEncrypt)
+            encryptViewModel.encryptText(it, textToEncrypt, EncryptTextSubscriber())
+        }
+    }
+
+    private inner class EncryptTextSubscriber : SingleObserver<String> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(encryptedText: String) {
             input_text.setText(encryptedText)
             input_text.isEnabled = false
             input_text.setBackgroundResource(R.color.light_black)
             input_text.setTextColor(Color.WHITE)
+            Toast.makeText(this@EncryptActivity, "Encryption Successful", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onError(e: Throwable) {
+            Toast.makeText(this@EncryptActivity, "Encryption Failed", Toast.LENGTH_SHORT).show()
         }
     }
 }

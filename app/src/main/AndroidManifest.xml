@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.EncryptActivity"
+            android:name=".ui.encrypt.EncryptActivity"
             android:label="@string/encryption" />
         <activity
             android:name=".ui.DecryptActivity"
