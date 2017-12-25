@@ -120,6 +120,10 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
         val textToEncrypt = input_text.text.toString()
+        if (textToEncrypt.isEmpty()) {
+            Toast.makeText(this, "Text Empty!", Toast.LENGTH_SHORT).show()
+            return
+        }
         currentEncryptionKey?.let {
             encryptViewModel.encryptText(it, textToEncrypt, EncryptTextSubscriber())
         }
