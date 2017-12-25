@@ -1,7 +1,7 @@
 package com.adityakamble49.mcrypt.interactor
 
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.cache.db.EncryptionKeyRepo
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import io.reactivex.Completable
 import io.reactivex.CompletableEmitter
 import io.reactivex.CompletableOnSubscribe
@@ -10,25 +10,25 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Save RSAKeyPair UseCase
+ * Save [[EncryptionKey]] UseCase
  *
  * @author Aditya Kamble
  * @since 17/12/2017
  */
-class SaveRSAKeyPairUseCase @Inject constructor(
-        private val rsaKeyPairRepo: RSAKeyPairRepo) {
+class SaveEncryptionKeyUseCase @Inject constructor(
+        private val encryptionKeyRepo: EncryptionKeyRepo) {
 
-    private fun buildUseCaseObservable(rsaKeyPair: RSAKeyPair): Completable {
+    private fun buildUseCaseObservable(encryptionKey: EncryptionKey): Completable {
         return Completable.create(object : CompletableOnSubscribe {
             override fun subscribe(e: CompletableEmitter) {
-                rsaKeyPairRepo.insertRSAKeyPair(rsaKeyPair)
+                encryptionKeyRepo.insertEncryptionKey(encryptionKey)
                 e.onComplete()
             }
         })
     }
 
-    fun execute(rsaKeyPair: RSAKeyPair): Completable {
-        return buildUseCaseObservable(rsaKeyPair)
+    fun execute(encryptionKey: EncryptionKey): Completable {
+        return buildUseCaseObservable(encryptionKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

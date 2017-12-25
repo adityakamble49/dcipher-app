@@ -2,7 +2,7 @@ package com.adityakamble49.mcrypt.ui.common
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.adityakamble49.mcrypt.interactor.GetCurrentRSAKeyPairUseCase
+import com.adityakamble49.mcrypt.interactor.GetCurrentEncryptionKeyUseCase
 
 /**
  * Common ViewModel Factory
@@ -11,12 +11,12 @@ import com.adityakamble49.mcrypt.interactor.GetCurrentRSAKeyPairUseCase
  * @since 17/12/2017
  */
 class CommonViewModelFactory(
-        private val getCurrentRSAKeyPairUseCase: GetCurrentRSAKeyPairUseCase) :
+        private val getCurrentEncryptionKeyUseCase: GetCurrentEncryptionKeyUseCase) :
         ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CommonViewModel::class.java)) {
-            return CommonViewModel(getCurrentRSAKeyPairUseCase) as T
+            return CommonViewModel(getCurrentEncryptionKeyUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

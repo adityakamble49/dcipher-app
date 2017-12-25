@@ -1,8 +1,8 @@
 package com.adityakamble49.mcrypt.ui.common
 
 import android.arch.lifecycle.ViewModel
-import com.adityakamble49.mcrypt.interactor.GetCurrentRSAKeyPairUseCase
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.interactor.GetCurrentEncryptionKeyUseCase
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import io.reactivex.Observer
 import javax.inject.Inject
 
@@ -13,9 +13,9 @@ import javax.inject.Inject
  * @since 17/12/2017
  */
 class CommonViewModel @Inject constructor(
-        private val getCurrentRSAKeyPairUseCase: GetCurrentRSAKeyPairUseCase) : ViewModel() {
+        private val getCurrentEncryptionKeyUseCase: GetCurrentEncryptionKeyUseCase) : ViewModel() {
 
-    fun requestCurrentRSAKeyPair(observer: Observer<RSAKeyPair>) {
-        getCurrentRSAKeyPairUseCase.execute().subscribe(observer)
+    fun requestCurrentEncryptionKey(observer: Observer<EncryptionKey>) {
+        getCurrentEncryptionKeyUseCase.execute().subscribe(observer)
     }
 }

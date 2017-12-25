@@ -15,7 +15,7 @@ class PreferenceHelper @Inject constructor(context: Context) {
     companion object {
         private val PREF_QUOTES_PACKAGE_NAME = "com.adityakamble49.mcrypt"
 
-        private val PREF_KEY_CURRENT_RSA_KEY_ID = "current_rsa_key_id"
+        private val PREF_KEY_CURRENT_ENCRYPTION_KEY_ID = "current_encryption_key_id"
     }
 
     private val mcryptPref: SharedPreferences
@@ -24,8 +24,8 @@ class PreferenceHelper @Inject constructor(context: Context) {
         mcryptPref = context.getSharedPreferences(PREF_QUOTES_PACKAGE_NAME, Context.MODE_PRIVATE)
     }
 
-    var currentRSAKeyId: Int
-        get() = mcryptPref.getInt(PREF_KEY_CURRENT_RSA_KEY_ID, 0)
-        set(currentKeyId) = mcryptPref.edit().putInt(PREF_KEY_CURRENT_RSA_KEY_ID,
+    var currentEncryptionKeyId: Int
+        get() = mcryptPref.getInt(PREF_KEY_CURRENT_ENCRYPTION_KEY_ID, 0)
+        set(currentKeyId) = mcryptPref.edit().putInt(PREF_KEY_CURRENT_ENCRYPTION_KEY_ID,
                 currentKeyId).apply()
 }

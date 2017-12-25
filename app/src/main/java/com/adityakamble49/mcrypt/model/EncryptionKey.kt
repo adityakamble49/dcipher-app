@@ -8,15 +8,16 @@ import java.security.PrivateKey
 import java.security.PublicKey
 
 /**
- * RSA Key Model - contains pubic and private key to encrypt and decrypt data
+ * Encryption Keys - contains pubic and private key to encryptSessionKey and decryptSessionKey data
  *
  * @author Aditya Kamble
  * @since 10/12/2017
  */
-@Entity(tableName = "rsa_key_pair",
+@Entity(tableName = "encryption_keys",
         indices = [(Index(value = arrayOf("name"), unique = true))])
-data class RSAKeyPair(
+data class EncryptionKey(
         @PrimaryKey(autoGenerate = true) var id: Int,
         var name: String,
+        var encryptedSessionKey: String,
         var publicKey: PublicKey,
         var privateKey: PrivateKey) : Serializable

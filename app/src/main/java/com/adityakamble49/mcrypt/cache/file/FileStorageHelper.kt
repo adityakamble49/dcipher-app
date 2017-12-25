@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import com.adityakamble49.mcrypt.di.scope.PerApplication
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import java.io.*
 import javax.inject.Inject
 
@@ -54,13 +54,13 @@ class FileStorageHelper @Inject constructor(
         return fetchedObject
     }
 
-    fun writeRSAKeyToFile(rsaKeyPair: RSAKeyPair): Uri {
-        val fileName = "${rsaKeyPair.name}.mck"
-        return writeObjectToFile(DIR_MCRYPT_KEYS, fileName, rsaKeyPair)
+    fun writeEncryptionKeyToFile(encryptionKey: EncryptionKey): Uri {
+        val fileName = "${encryptionKey.name}.mck"
+        return writeObjectToFile(DIR_MCRYPT_KEYS, fileName, encryptionKey)
     }
 
-    fun fetchRSAKeyPairFromFile(uri: Uri): RSAKeyPair {
-        return readObjectFromFile(uri) as RSAKeyPair
+    fun fetchEncryptionKeyFromFile(uri: Uri): EncryptionKey {
+        return readObjectFromFile(uri) as EncryptionKey
     }
 
     private fun isExternalStorageReadOnly(): Boolean {

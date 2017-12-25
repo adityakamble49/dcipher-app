@@ -2,7 +2,7 @@ package com.adityakamble49.mcrypt.interactor
 
 import android.net.Uri
 import com.adityakamble49.mcrypt.cache.file.FileStorageHelper
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
@@ -11,25 +11,25 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Save RSAKeyPair to File UseCase
+ * Get EncryptionKey to From UseCase
  *
  * @author Aditya Kamble
  * @since 24/12/2017
  */
-class SaveRSAKeyPairToFileUseCase @Inject constructor(
+class GetEncryptionKeyFromFileUseCase @Inject constructor(
         private val fileStorageHelper: FileStorageHelper) {
 
-    private fun buildUseCaseObservable(rsaKeyPair: RSAKeyPair): Single<Uri> {
-        return Single.create(object : SingleOnSubscribe<Uri> {
-            override fun subscribe(e: SingleEmitter<Uri>) {
-                val fileUri = fileStorageHelper.writeRSAKeyToFile(rsaKeyPair)
-                e.onSuccess(fileUri)
+    private fun buildUseCaseObservable(uri: Uri): Single<EncryptionKey> {
+        return Single.create(object : SingleOnSubscribe<EncryptionKey> {
+            override fun subscribe(e: SingleEmitter<EncryptionKey>) {
+                val encryptionKey = fileStorageHelper.fetchEncryptionKeyFromFile(uri)
+                e.onSuccess(encryptionKey)
             }
         })
     }
 
-    fun execute(rsaKeyPair: RSAKeyPair): Single<Uri> {
-        return buildUseCaseObservable(rsaKeyPair)
+    fun execute(uri: Uri): Single<EncryptionKey> {
+        return buildUseCaseObservable(uri)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

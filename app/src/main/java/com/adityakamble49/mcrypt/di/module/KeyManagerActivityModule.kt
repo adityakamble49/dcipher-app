@@ -1,6 +1,6 @@
 package com.adityakamble49.mcrypt.di.module
 
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.cache.db.EncryptionKeyRepo
 import com.adityakamble49.mcrypt.di.scope.PerActivity
 import com.adityakamble49.mcrypt.interactor.*
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerViewModelFactory
@@ -18,13 +18,14 @@ class KeyManagerActivityModule {
 
     @Provides
     @PerActivity
-    fun provideKeyManagerViewModelFactory(rsaKeyPairRepo: RSAKeyPairRepo,
-                                          buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
-                                          saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
-                                          saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
-                                          deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase,
-                                          getRSAKeyPairFromFileUseCase: GetRSAKeyPairFromFileUseCase):
+    fun provideKeyManagerViewModelFactory(encryptionKeyRepo: EncryptionKeyRepo,
+                                          buildEncryptionKeyUseCase: BuildEncryptionKeyUseCase,
+                                          saveEncryptionKeyUseCase: SaveEncryptionKeyUseCase,
+                                          saveEncryptionKeyToFileUseCase: SaveEncryptionKeyToFileUseCase,
+                                          deleteEncryptionKeyUseCase: DeleteEncryptionKeyUseCase,
+                                          getEncryptionKeyFromFileUseCase: GetEncryptionKeyFromFileUseCase):
             KeyManagerViewModelFactory = KeyManagerViewModelFactory(
-            rsaKeyPairRepo, buildRSAKeyPairUseCase, saveRSAKeyPairUseCase,
-            saveRSAKeyPairToFileUseCase, deleteRSAKeyPairUseCase, getRSAKeyPairFromFileUseCase)
+            encryptionKeyRepo, buildEncryptionKeyUseCase, saveEncryptionKeyUseCase,
+            saveEncryptionKeyToFileUseCase, deleteEncryptionKeyUseCase,
+            getEncryptionKeyFromFileUseCase)
 }

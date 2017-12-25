@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.adityakamble49.mcrypt.R
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.utils.inflate
 import kotlinx.android.synthetic.main.rsa_key_item.view.*
 
@@ -13,19 +13,19 @@ import kotlinx.android.synthetic.main.rsa_key_item.view.*
  * @author Aditya Kamble
  * @since 10/12/2017
  */
-class RSAKeyListAdapter : RecyclerView.Adapter<RSAKeyListAdapter.ViewHolder>() {
+class EncryptionKeyListAdapter : RecyclerView.Adapter<EncryptionKeyListAdapter.ViewHolder>() {
 
     lateinit var onItemClickListener: AdapterView.OnItemClickListener
 
-    var rsaKeyPairList = emptyList<RSAKeyPair>()
+    var encryptionKeyList = emptyList<EncryptionKey>()
 
-    override fun getItemCount() = rsaKeyPairList.size
+    override fun getItemCount() = encryptionKeyList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
             parent.inflate(R.layout.rsa_key_item))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(
-            rsaKeyPairList[position])
+            encryptionKeyList[position])
 
     inner class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener {
@@ -34,13 +34,13 @@ class RSAKeyListAdapter : RecyclerView.Adapter<RSAKeyListAdapter.ViewHolder>() {
             itemView.rsa_key_options.setOnClickListener(this@ViewHolder)
         }
 
-        fun bind(rsaKeyPair: RSAKeyPair) = with(itemView) {
-            rsa_key_pair_name.text = rsaKeyPair.name
+        fun bind(encryptionKey: EncryptionKey) = with(itemView) {
+            rsa_key_pair_name.text = encryptionKey.name
             rsa_key_options.setOnClickListener(this@ViewHolder)
         }
 
         override fun onClick(view: View?) {
-            this@RSAKeyListAdapter.onItemClickListener.onItemClick(null, view, adapterPosition, 0)
+            this@EncryptionKeyListAdapter.onItemClickListener.onItemClick(null, view, adapterPosition, 0)
         }
 
     }

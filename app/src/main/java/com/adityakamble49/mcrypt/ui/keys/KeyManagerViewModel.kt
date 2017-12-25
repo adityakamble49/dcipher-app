@@ -3,13 +3,14 @@ package com.adityakamble49.mcrypt.ui.keys
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.net.Uri
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairRepo
+import com.adityakamble49.mcrypt.cache.db.EncryptionKeyRepo
 import com.adityakamble49.mcrypt.interactor.*
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import io.reactivex.CompletableObserver
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -19,46 +20,48 @@ import javax.inject.Inject
  * @since 13/12/2017
  */
 class KeyManagerViewModel @Inject constructor(
-        private val rsaKeyPairRepo: RSAKeyPairRepo,
-        private val buildRSAKeyPairUseCase: BuildRSAKeyPairUseCase,
-        private val saveRSAKeyPairUseCase: SaveRSAKeyPairUseCase,
-        private val saveRSAKeyPairToFileUseCase: SaveRSAKeyPairToFileUseCase,
-        private val deleteRSAKeyPairUseCase: DeleteRSAKeyPairUseCase,
-        private val getRSAKeyPairFromFileUseCase: GetRSAKeyPairFromFileUseCase) : ViewModel() {
+        private val encryptionKeyRepo: EncryptionKeyRepo,
+        private val buildEncryptionKeyUseCase: BuildEncryptionKeyUseCase,
+        private val saveEncryptionKeyUseCase: SaveEncryptionKeyUseCase,
+        private val saveEncryptionKeyToFileUseCase: SaveEncryptionKeyToFileUseCase,
+        private val deleteEncryptionKeyUseCase: DeleteEncryptionKeyUseCase,
+        private val getEncryptionKeyFromFileUseCase: GetEncryptionKeyFromFileUseCase) : ViewModel() {
 
-    val rsaKeyPairList: LiveData<List<RSAKeyPair>> = rsaKeyPairRepo.getRSAKeyPairList()
+    val encryptionKeyList: LiveData<List<EncryptionKey>> = encryptionKeyRepo.getEncryptionKeyList()
     lateinit var saveRSAKeyObserver: CompletableObserver
 
-    fun generateAndSaveKeyPair(keyName: String, observer: CompletableObserver) {
+    fun generateAndSaveEncryptionKey(keyName: String, observer: CompletableObserver) {
         saveRSAKeyObserver = observer
-        buildRSAKeyPairUseCase.execute(keyName).subscribe(BuildRSAKeyPairSubscriber())
+        buildEncryptionKeyUseCase.execute(keyName).subscribe(BuildEncryptionKeySubscriber())
     }
 
-    fun saveRSAKeyPairToDb(rsaKeyPair: RSAKeyPair, observer: CompletableObserver) {
-        saveRSAKeyPairUseCase.execute(rsaKeyPair).subscribe(observer)
+    fun saveEncryptionKeyToDb(encryptionKey: EncryptionKey, observer: CompletableObserver) {
+        saveEncryptionKeyUseCase.execute(encryptionKey).subscribe(observer)
     }
 
-    fun saveRSAKeyPairToFile(rsaKeyPair: RSAKeyPair, observer: SingleObserver<Uri>) {
-        saveRSAKeyPairToFileUseCase.execute(rsaKeyPair).subscribe(observer)
+    fun saveEncryptionKeyToFile(encryptionKey: EncryptionKey, observer: SingleObserver<Uri>) {
+        saveEncryptionKeyToFileUseCase.execute(encryptionKey).subscribe(observer)
     }
 
-    fun deleteRSAKeyPair(rsaKeyPair: RSAKeyPair, observer: CompletableObserver) {
-        deleteRSAKeyPairUseCase.execute(rsaKeyPair).subscribe(observer)
+    fun deleteEncryptionKey(encryptionKey: EncryptionKey, observer: CompletableObserver) {
+        deleteEncryptionKeyUseCase.execute(encryptionKey).subscribe(observer)
     }
 
-    fun getRSAKeyPairFromFile(uri: Uri, observer: SingleObserver<RSAKeyPair>) {
-        getRSAKeyPairFromFileUseCase.execute(uri).subscribe(observer)
+    fun getEncryptionKeyFromFile(uri: Uri, observer: SingleObserver<EncryptionKey>) {
+        getEncryptionKeyFromFileUseCase.execute(uri).subscribe(observer)
     }
 
-    inner class BuildRSAKeyPairSubscriber : Observer<RSAKeyPair> {
+    inner class BuildEncryptionKeySubscriber : Observer<EncryptionKey> {
         override fun onSubscribe(d: Disposable) {}
 
-        override fun onNext(t: RSAKeyPair) {
-            saveRSAKeyPairUseCase.execute(t).subscribe(saveRSAKeyObserver)
+        override fun onNext(t: EncryptionKey) {
+            saveEncryptionKeyUseCase.execute(t).subscribe(saveRSAKeyObserver)
         }
 
         override fun onComplete() {}
 
-        override fun onError(e: Throwable) {}
+        override fun onError(e: Throwable) {
+            Timber.i(e)
+        }
     }
 }

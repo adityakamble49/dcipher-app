@@ -3,8 +3,8 @@ package com.adityakamble49.mcrypt.di.module
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.adityakamble49.mcrypt.cache.db.EncryptionKeyDao
 import com.adityakamble49.mcrypt.cache.db.MCryptDatabase
-import com.adityakamble49.mcrypt.cache.db.RSAKeyPairDao
 import com.adityakamble49.mcrypt.di.scope.PerApplication
 import dagger.Module
 import dagger.Provides
@@ -25,8 +25,8 @@ open class ApplicationModule {
 
     @Provides
     @PerApplication
-    fun provideRSAKeyPairDao(
-            mCryptDatabase: MCryptDatabase): RSAKeyPairDao = mCryptDatabase.rsaKeyPairDao()
+    fun provideEncryptionKeyDao(
+            mCryptDatabase: MCryptDatabase): EncryptionKeyDao = mCryptDatabase.encryptionKeyDao()
 
     @Provides
     @PerApplication

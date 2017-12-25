@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.adityakamble49.mcrypt.R
-import com.adityakamble49.mcrypt.cache.exception.RSAKeyPairNotFoundException
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.cache.exception.EncryptionKeyNotFoundException
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
@@ -15,7 +15,6 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_decrypt.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class DecryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -27,7 +26,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var commonViewModel: CommonViewModel
 
     // Other Fields
-    var currentRSAKeyPair: RSAKeyPair? = null
+    var currentEncryptionKey: EncryptionKey? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        commonViewModel.requestCurrentRSAKeyPair(GetCurrentRSAKeyPairSubscriber())
+        commonViewModel.requestCurrentEncryptionKey(GetCurrentEncryptionKeySubscriber())
     }
 
 
@@ -54,7 +53,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.change_rsa_key -> startActivity(Intent(this, KeyManagerActivity::class.java))
+            R.id.change_encryption_key -> startActivity(Intent(this, KeyManagerActivity::class.java))
         }
     }
 
@@ -64,14 +63,14 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
      */
 
     private fun bindView() {
-        change_rsa_key.setOnClickListener(this)
+        change_encryption_key.setOnClickListener(this)
     }
 
-    private inner class GetCurrentRSAKeyPairSubscriber : Observer<RSAKeyPair> {
+    private inner class GetCurrentEncryptionKeySubscriber : Observer<EncryptionKey> {
         override fun onSubscribe(d: Disposable) {}
 
-        override fun onNext(t: RSAKeyPair) {
-            currentRSAKeyPair = t
+        override fun onNext(t: EncryptionKey) {
+            currentEncryptionKey = t
             val loadedKey = getString(R.string.loaded_key_placeholder, t.name)
             loaded_key.text = loadedKey
         }
@@ -79,8 +78,8 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
         override fun onComplete() {}
 
         override fun onError(e: Throwable) {
-            if (e is RSAKeyPairNotFoundException) {
-                currentRSAKeyPair = null
+            if (e is EncryptionKeyNotFoundException) {
+                currentEncryptionKey = null
                 val loadedKey = getString(R.string.loaded_key_placeholder, "No Key Loaded")
                 loaded_key.text = loadedKey
             }

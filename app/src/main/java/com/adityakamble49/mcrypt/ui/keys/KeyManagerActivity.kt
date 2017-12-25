@@ -18,8 +18,8 @@ import android.widget.Toast
 import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.PreferenceHelper
-import com.adityakamble49.mcrypt.interactor.RSAKeyPairInUseException
-import com.adityakamble49.mcrypt.model.RSAKeyPair
+import com.adityakamble49.mcrypt.interactor.EncryptionKeyInUseException
+import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.utils.hasSpecialChar
 import com.adityakamble49.mcrypt.utils.updateUI
@@ -30,10 +30,11 @@ import io.reactivex.CompletableObserver
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_key_manager.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * RSA Key Pair - Manager Activity
+ * Encryption Key Pair - Manager Activity
  *
  * @author Aditya Kamble
  * @since 10/12/2017
@@ -50,7 +51,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private lateinit var keyManagerViewModel: KeyManagerViewModel
 
     // Views
-    private lateinit var rsaKeyListAdapter: RSAKeyListAdapter
+    private lateinit var encryptionKeyListAdapter: EncryptionKeyListAdapter
 
     // Other Fields
     val REQ_FILE_CHOOSER = 901
@@ -72,8 +73,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
         bindView()
 
-        // Observe RSA Key List
-        observeRSAKeyPairList()
+        // Observe Encryption Key List
+        observeEncryptionKeyList()
 
         // Get intent extras
         handleIntentExtras()
@@ -104,7 +105,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, view: View, position: Int, id: Long) {
-        showRSAKeyPairOptionMenu(view, position)
+        showEncryptionKeyOptionMenu(view, position)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -113,8 +114,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
                 if (resultCode == Activity.RESULT_OK) {
                     data?.let {
                         val uri = it.data
-                        keyManagerViewModel.getRSAKeyPairFromFile(uri,
-                                RSAKeyPairFileToDBSubscriber())
+                        keyManagerViewModel.getEncryptionKeyFromFile(uri,
+                                EncryptionKeyFileToDBSubscriber())
                     }
                 }
             }
@@ -132,23 +133,23 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         // Setup Support Action Bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Setup RSA Key List RecyclerView
+        // Setup Encryption Key List RecyclerView
         val linearLayoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, linearLayoutManager.orientation)
-        rsaKeyListAdapter = RSAKeyListAdapter()
-        rsaKeyListAdapter.onItemClickListener = this
-        rsa_key_list.layoutManager = linearLayoutManager
-        rsa_key_list.addItemDecoration(decorator)
-        rsa_key_list.adapter = rsaKeyListAdapter
+        encryptionKeyListAdapter = EncryptionKeyListAdapter()
+        encryptionKeyListAdapter.onItemClickListener = this
+        encryption_key_list.layoutManager = linearLayoutManager
+        encryption_key_list.addItemDecoration(decorator)
+        encryption_key_list.adapter = encryptionKeyListAdapter
 
         // Setup Key Manager FAB
         import_key_fab.setOnClickListener(this)
         generate_key_fab.setOnClickListener(this)
     }
 
-    private fun showRSAKeyPairOptionMenu(view: View, position: Int) {
+    private fun showEncryptionKeyOptionMenu(view: View, position: Int) {
         val popupMenu = PopupMenu(this, view)
-        popupMenu.menuInflater.inflate(R.menu.menu_rsa_key_options, popupMenu.menu)
+        popupMenu.menuInflater.inflate(R.menu.menu_encryption_key_options, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_use -> handleUseKey(position)
@@ -160,12 +161,12 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         popupMenu.show()
     }
 
-    private fun observeRSAKeyPairList() {
-        keyManagerViewModel.rsaKeyPairList.observe(this, Observer<List<RSAKeyPair>> {
+    private fun observeEncryptionKeyList() {
+        keyManagerViewModel.encryptionKeyList.observe(this, Observer<List<EncryptionKey>> {
             it?.let {
                 appExecutors.updateUI {
-                    rsaKeyListAdapter.rsaKeyPairList = it
-                    rsaKeyListAdapter.notifyDataSetChanged()
+                    encryptionKeyListAdapter.encryptionKeyList = it
+                    encryptionKeyListAdapter.notifyDataSetChanged()
                 }
             }
         })
@@ -173,33 +174,35 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     private fun handleIntentExtras() {
         val uri: Uri? = intent.data
+        Timber.i(uri.toString())
         uri?.let {
-            keyManagerViewModel.getRSAKeyPairFromFile(it, GetRSAKeyPairFromFileSubscriber())
+            keyManagerViewModel.getEncryptionKeyFromFile(it, GetEncryptionKeyFromFileSubscriber())
             isFromFileIntent = true
         }
     }
 
-    private inner class GetRSAKeyPairFromFileSubscriber : SingleObserver<RSAKeyPair> {
+    private inner class GetEncryptionKeyFromFileSubscriber : SingleObserver<EncryptionKey> {
         override fun onSubscribe(d: Disposable) {}
 
-        override fun onSuccess(t: RSAKeyPair) {
+        override fun onSuccess(t: EncryptionKey) {
             buildImportFromIntentFileDialog(t).show()
         }
 
         override fun onError(e: Throwable) {
             Toast.makeText(this@KeyManagerActivity,
-                    getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
+                    getString(R.string.encryption_key_from_file_failed_invalid),
+                    Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun buildImportFromIntentFileDialog(rsaKeyPair: RSAKeyPair):
+    private fun buildImportFromIntentFileDialog(encryptionKey: EncryptionKey):
             MaterialDialog = MaterialDialog.Builder(this)
             .title(getString(R.string.import_key_dialog_title))
-            .content(getString(R.string.import_key_dialog_content, rsaKeyPair.name))
+            .content(getString(R.string.import_key_dialog_content, encryptionKey.name))
             .positiveText(getString(R.string.import_key_dialog_positive_text))
             .negativeText(getString(R.string.import_key_dialog_negative_text))
             .onPositive { _, _ ->
-                keyManagerViewModel.saveRSAKeyPairToDb(rsaKeyPair, SaveKeyPairSubscriber())
+                keyManagerViewModel.saveEncryptionKeyToDb(encryptionKey, SaveKeyPairSubscriber())
             }
             .cancelable(false)
             .build()
@@ -225,16 +228,17 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         startActivityForResult(openFileIntent, REQ_FILE_CHOOSER)
     }
 
-    private inner class RSAKeyPairFileToDBSubscriber : SingleObserver<RSAKeyPair> {
+    private inner class EncryptionKeyFileToDBSubscriber : SingleObserver<EncryptionKey> {
         override fun onSubscribe(d: Disposable) {}
 
-        override fun onSuccess(t: RSAKeyPair) {
-            keyManagerViewModel.saveRSAKeyPairToDb(t, SaveKeyPairSubscriber())
+        override fun onSuccess(t: EncryptionKey) {
+            keyManagerViewModel.saveEncryptionKeyToDb(t, SaveKeyPairSubscriber())
         }
 
         override fun onError(e: Throwable) {
             Toast.makeText(this@KeyManagerActivity,
-                    getString(R.string.rsa_key_from_file_failed_invalid), Toast.LENGTH_SHORT).show()
+                    getString(R.string.encryption_key_from_file_failed_invalid),
+                    Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -260,7 +264,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             })
             .onPositive { dialog, _ ->
                 dialog.inputEditText?.text.let {
-                    keyManagerViewModel.generateAndSaveKeyPair(it.toString(),
+                    keyManagerViewModel.generateAndSaveEncryptionKey(it.toString(),
                             SaveKeyPairSubscriber())
                 }
             }
@@ -269,29 +273,31 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
 
     private inner class SaveKeyPairSubscriber : CompletableObserver {
         override fun onComplete() {
-            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_added_success),
+            Toast.makeText(this@KeyManagerActivity,
+                    getString(R.string.encryption_key_added_success),
                     Toast.LENGTH_SHORT).show()
         }
 
         override fun onSubscribe(d: Disposable) {}
 
         override fun onError(e: Throwable) {
+            Timber.i(e)
             Toast.makeText(this@KeyManagerActivity,
-                    getString(R.string.rsa_key_generation_failed_name_present),
+                    getString(R.string.encryption_key_generation_failed_name_present),
                     Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun handleUseKey(position: Int) {
-        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
-        preferenceHelper.currentRSAKeyId = currentKey.id
+        val currentKey = encryptionKeyListAdapter.encryptionKeyList[position]
+        preferenceHelper.currentEncryptionKeyId = currentKey.id
         Toast.makeText(this@KeyManagerActivity, "Key changed to ${currentKey.name}",
                 Toast.LENGTH_SHORT).show()
     }
 
     private fun handleShareKey(position: Int) {
-        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
-        keyManagerViewModel.saveRSAKeyPairToFile(currentKey, SaveRSAKeyPairToFileSubscriber())
+        val currentKey = encryptionKeyListAdapter.encryptionKeyList[position]
+        keyManagerViewModel.saveEncryptionKeyToFile(currentKey, SaveEncryptionKeyToFileSubscriber())
     }
 
     private fun createShareIntent(fileUri: Uri) {
@@ -302,7 +308,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         startActivity(Intent.createChooser(shareKeyIntent, "Share Key"))
     }
 
-    private inner class SaveRSAKeyPairToFileSubscriber : SingleObserver<Uri> {
+    private inner class SaveEncryptionKeyToFileSubscriber : SingleObserver<Uri> {
         override fun onSubscribe(d: Disposable) {}
 
         override fun onSuccess(t: Uri) {
@@ -313,23 +319,25 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     }
 
     private fun handleDeleteKey(position: Int) {
-        val currentKey = rsaKeyListAdapter.rsaKeyPairList[position]
-        keyManagerViewModel.deleteRSAKeyPair(currentKey, DeleteKeyPairSubscriber())
+        val currentKey = encryptionKeyListAdapter.encryptionKeyList[position]
+        keyManagerViewModel.deleteEncryptionKey(currentKey, DeleteKeyPairSubscriber())
     }
 
     private inner class DeleteKeyPairSubscriber : CompletableObserver {
 
         override fun onComplete() {
-            Toast.makeText(this@KeyManagerActivity, getString(R.string.rsa_key_delete_success),
+            Toast.makeText(this@KeyManagerActivity,
+                    getString(R.string.encryption_key_delete_success),
                     Toast.LENGTH_SHORT).show()
         }
 
         override fun onSubscribe(d: Disposable) {}
 
         override fun onError(e: Throwable) {
-            if (e is RSAKeyPairInUseException) {
+            if (e is EncryptionKeyInUseException) {
                 Toast.makeText(this@KeyManagerActivity,
-                        getString(R.string.rsa_key_delete_failed_in_use), Toast.LENGTH_SHORT).show()
+                        getString(R.string.encryption_key_delete_failed_in_use),
+                        Toast.LENGTH_SHORT).show()
             }
         }
     }
