@@ -31,7 +31,7 @@ class SaveEncryptionKeyToFileUseCase @Inject constructor(
     }
 
     private fun writeEncryptionKeyToFile(encryptionKey: EncryptionKey): Uri {
-        val fileName = "${encryptionKey.name}.${MCryptFileFormats.MCRYPT_KEYS}"
+        val fileName = "${encryptionKey.name}.${MCryptFileFormats.MCRYPT_KEY}"
         return fileStorageHelper.writeObjectToFile(MCryptDir.MCRYPT_KEYS, fileName, encryptionKey)
     }
 

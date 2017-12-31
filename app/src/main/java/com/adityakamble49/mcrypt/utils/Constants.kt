@@ -20,7 +20,7 @@ class Constants {
     }
 
     object MCryptFileFormats {
-        const val MCRYPT_KEYS = "mck"
+        const val MCRYPT_KEY = "mck"
     }
 
     object ShareEncryptionType {
