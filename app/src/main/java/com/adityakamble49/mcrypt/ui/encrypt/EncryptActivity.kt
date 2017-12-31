@@ -2,9 +2,11 @@ package com.adityakamble49.mcrypt.ui.encrypt
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,12 +19,15 @@ import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import com.adityakamble49.mcrypt.utils.Constants.Companion.TEXT_INTENT
 import com.adityakamble49.mcrypt.utils.Constants.ShareEncryptionType
+import com.adityakamble49.mcrypt.utils.hasSpecialChar
+import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_encrypt.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class EncryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -186,8 +191,55 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent.createChooser(shareTextIntent, getString(R.string.share)))
             }
             ShareEncryptionType.FILE -> {
-
+                buildShareEncryptedFileNameDialog(encryptedText).show()
             }
         }
+    }
+
+    private fun buildShareEncryptedFileNameDialog(
+            encryptedText: String): MaterialDialog = MaterialDialog.Builder(this)
+            .title(getString(R.string.encrypted_file_dialog_title))
+            .content(getString(R.string.encrypted_file_dialog_content))
+            .inputType(InputType.TYPE_CLASS_TEXT)
+            .inputRange(1, 50)
+            .input(getString(R.string.encrypted_file_dialog_hint),
+                    getString(R.string.encrypted_file_dialog_prefill), { dialog, input ->
+                val keyName = input.toString()
+                if (keyName.hasSpecialChar()) {
+                    dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
+                    dialog.setContent(
+                            getString(R.string.encrypted_file_dialog_special_char_warning))
+                } else {
+                    dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
+                    dialog.setContent(getString(R.string.encrypted_file_dialog_content))
+                }
+            })
+            .onPositive { dialog, _ ->
+                dialog.inputEditText?.text.let {
+                    encryptViewModel.saveEncryptedTextToFile(it.toString(), encryptedText,
+                            SaveEncryptedTextToFileSubscriber())
+                }
+            }
+            .alwaysCallInputCallback()
+            .build()
+
+    private inner class SaveEncryptedTextToFileSubscriber : SingleObserver<Uri> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(t: Uri) {
+            createShareEncryptedFileIntent(t)
+        }
+
+        override fun onError(e: Throwable) {
+            Timber.i(e)
+        }
+    }
+
+    private fun createShareEncryptedFileIntent(fileUri: Uri) {
+        val shareKeyIntent = Intent()
+        shareKeyIntent.action = Intent.ACTION_SEND
+        shareKeyIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+        shareKeyIntent.type = "*/*"
+        startActivity(Intent.createChooser(shareKeyIntent, "Share Encrypted file"))
     }
 }

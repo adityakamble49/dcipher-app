@@ -20,6 +20,7 @@
     <string name="generate_key_dialog_content">Generate Public and Private RSA Key Pair</string>
     <string name="generate_key_dialog_hint">Key Pair Name</string>
     <string name="generate_key_dialog_prefill">Default Key 1</string>
+    <string name="generate_key_dialog_special_char_warning">Special characters not allowed</string>
 
     <string name="encryption_key_added_success">RSA Key Added</string>
     <string name="encryption_key_generation_failed_name_present">RSA Key Name Present!</string>
@@ -33,7 +34,12 @@
     <string name="import_key_dialog_content">Import %1$s key?</string>
     <string name="import_key_dialog_positive_text">Import</string>
     <string name="import_key_dialog_negative_text">No</string>
-    <string name="generate_key_dialog_special_char_warning">Special characters not allowed</string>
+
+    <string name="encrypted_file_dialog_title">Encrypted File Name</string>
+    <string name="encrypted_file_dialog_content">Give name to encrypted file</string>
+    <string name="encrypted_file_dialog_hint">Name for encrypted file</string>
+    <string name="encrypted_file_dialog_prefill">Encrypted File 1</string>
+    <string name="encrypted_file_dialog_special_char_warning">Special characters not allowed</string>
 
     <string name="reset">Reset</string>
 </resources>
