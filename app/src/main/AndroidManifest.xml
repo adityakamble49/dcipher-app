@@ -22,8 +22,22 @@
             android:name=".ui.encrypt.EncryptActivity"
             android:label="@string/encryption" />
         <activity
-            android:name=".ui.DecryptActivity"
-            android:label="@string/decryption" />
+            android:name=".ui.decrypt.DecryptActivity"
+            android:label="@string/decryption">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.mcef" />
+                <data
+                    android:mimeType="application/mck"
+                    android:pathPattern=".*\\.mcef" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.keys.KeyManagerActivity"
             android:label="@string/key_manager"

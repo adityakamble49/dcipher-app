@@ -10,6 +10,7 @@ import android.view.View
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
+import com.adityakamble49.mcrypt.ui.decrypt.DecryptActivity
 import com.adityakamble49.mcrypt.ui.encrypt.EncryptActivity
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import dagger.android.AndroidInjection
