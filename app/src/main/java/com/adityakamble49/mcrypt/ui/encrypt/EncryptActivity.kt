@@ -15,13 +15,14 @@ import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
+import com.adityakamble49.mcrypt.utils.Constants.Companion.TEXT_INTENT
+import com.adityakamble49.mcrypt.utils.Constants.ShareEncryptionType
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_encrypt.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class EncryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -172,6 +173,21 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
     private fun buildShareWithDialog() = MaterialDialog.Builder(this)
             .title("Share encrypted text with")
             .items(R.array.share_with_options)
-            .itemsCallback { _, _, position, _ -> Timber.i(position.toString()) }
+            .itemsCallback { _, _, position, _ -> handleShareEncryptionWith(position) }
             .build()
+
+    private fun handleShareEncryptionWith(shareWith: Int) {
+        val encryptedText = input_text.text.toString()
+        when (shareWith) {
+            ShareEncryptionType.TEXT -> {
+                val shareTextIntent = Intent(Intent.ACTION_SEND)
+                shareTextIntent.type = TEXT_INTENT
+                shareTextIntent.putExtra(Intent.EXTRA_TEXT, encryptedText)
+                startActivity(Intent.createChooser(shareTextIntent, getString(R.string.share)))
+            }
+            ShareEncryptionType.FILE -> {
+
+            }
+        }
+    }
 }

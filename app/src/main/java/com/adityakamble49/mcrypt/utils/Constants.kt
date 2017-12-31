@@ -12,5 +12,11 @@ class Constants {
         const val ALGORITHM_RSA = "RSA"
         const val AES_KEY = "AES"
         const val AES_CIPHER = "AES/CBC/PKCS5Padding"
+        const val TEXT_INTENT = "text/plain"
+    }
+
+    object ShareEncryptionType {
+        const val TEXT = 0
+        const val FILE = 1
     }
 }
