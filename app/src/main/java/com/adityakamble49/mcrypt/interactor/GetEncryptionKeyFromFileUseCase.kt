@@ -22,10 +22,14 @@ class GetEncryptionKeyFromFileUseCase @Inject constructor(
     private fun buildUseCaseObservable(uri: Uri): Single<EncryptionKey> {
         return Single.create(object : SingleOnSubscribe<EncryptionKey> {
             override fun subscribe(e: SingleEmitter<EncryptionKey>) {
-                val encryptionKey = fileStorageHelper.fetchEncryptionKeyFromFile(uri)
+                val encryptionKey = fetchEncryptionKeyFromFile(uri)
                 e.onSuccess(encryptionKey)
             }
         })
+    }
+
+    private fun fetchEncryptionKeyFromFile(uri: Uri): EncryptionKey {
+        return fileStorageHelper.readObjectFromFile(uri) as EncryptionKey
     }
 
     fun execute(uri: Uri): Single<EncryptionKey> {

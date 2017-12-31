@@ -38,7 +38,7 @@ class FileStorageHelper @Inject constructor(
         return fileUri
     }
 
-    private fun readObjectFromFile(uri: Uri): Any {
+    fun readObjectFromFile(uri: Uri): Any {
         if (!isExternalStorageAvailable()) {
             throw ExternalStorageException("External Storage not Available")
         }
@@ -57,10 +57,6 @@ class FileStorageHelper @Inject constructor(
     fun writeEncryptionKeyToFile(encryptionKey: EncryptionKey): Uri {
         val fileName = "${encryptionKey.name}.mck"
         return writeObjectToFile(DIR_MCRYPT_KEYS, fileName, encryptionKey)
-    }
-
-    fun fetchEncryptionKeyFromFile(uri: Uri): EncryptionKey {
-        return readObjectFromFile(uri) as EncryptionKey
     }
 
     private fun isExternalStorageReadOnly(): Boolean {
