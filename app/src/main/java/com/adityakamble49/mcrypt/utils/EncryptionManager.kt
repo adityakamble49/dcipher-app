@@ -12,6 +12,7 @@ import java.security.PrivateKey
 import java.security.PublicKey
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
+import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 import javax.inject.Inject
 
@@ -65,9 +66,9 @@ class EncryptionManager @Inject constructor() {
         val sessionKey = SecretKeySpec(sessionKeyByte, 0, sessionKeyByte.size, AES_KEY)
         val cipher = Cipher.getInstance(AES_CIPHER)
         if (cipherMode == Cipher.ENCRYPT_MODE) {
-            cipher.init(Cipher.ENCRYPT_MODE, sessionKey)
+            cipher.init(Cipher.ENCRYPT_MODE, sessionKey, IvParameterSpec(ByteArray(16)))
         } else {
-            cipher.init(Cipher.DECRYPT_MODE, sessionKey)
+            cipher.init(Cipher.DECRYPT_MODE, sessionKey, IvParameterSpec(ByteArray(16)))
         }
         return cipher
     }
