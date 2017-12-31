@@ -1,6 +1,7 @@
 package com.adityakamble49.mcrypt.di.module
 
 import com.adityakamble49.mcrypt.di.scope.PerActivity
+import com.adityakamble49.mcrypt.interactor.DecryptTextUseCase
 import com.adityakamble49.mcrypt.interactor.GetEncryptedTextFromFileUseCase
 import com.adityakamble49.mcrypt.ui.decrypt.DecryptViewModelFactory
 import dagger.Module
@@ -18,6 +19,8 @@ class DecryptActivityModule {
     @Provides
     @PerActivity
     fun provideDecryptViewModelFactory(
-            getEncryptedTextFromFileUseCase: GetEncryptedTextFromFileUseCase):
-            DecryptViewModelFactory = DecryptViewModelFactory(getEncryptedTextFromFileUseCase)
+            getEncryptedTextFromFileUseCase: GetEncryptedTextFromFileUseCase,
+            decryptTextUseCase: DecryptTextUseCase):
+            DecryptViewModelFactory = DecryptViewModelFactory(getEncryptedTextFromFileUseCase,
+            decryptTextUseCase)
 }
