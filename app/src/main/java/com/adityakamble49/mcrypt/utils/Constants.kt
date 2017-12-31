@@ -17,10 +17,12 @@ class Constants {
 
     object MCryptDir {
         const val MCRYPT_KEYS = "mcrypt_keys"
+        const val MCRYPT_ENCRYPTED_FILES = "mcrypt_encrypted_files"
     }
 
     object MCryptFileFormats {
         const val MCRYPT_KEY = "mck"
+        const val MCRYPT_ENCRYPTED_FILE = "mcef"
     }
 
     object ShareEncryptionType {
