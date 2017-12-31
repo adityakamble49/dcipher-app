@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import com.adityakamble49.mcrypt.di.scope.PerApplication
-import com.adityakamble49.mcrypt.model.EncryptionKey
 import java.io.*
 import javax.inject.Inject
 
@@ -18,9 +17,7 @@ import javax.inject.Inject
 class FileStorageHelper @Inject constructor(
         private val appContext: Context) {
 
-    private val DIR_MCRYPT_KEYS = "mcrypt_keys"
-
-    private fun writeObjectToFile(filePath: String, fileName: String, content: Serializable): Uri {
+    fun writeObjectToFile(filePath: String, fileName: String, content: Serializable): Uri {
         if (!isExternalStorageAvailable()) {
             throw ExternalStorageException("External Storage not Available")
         }
@@ -52,11 +49,6 @@ class FileStorageHelper @Inject constructor(
         ois.close()
         fis.close()
         return fetchedObject
-    }
-
-    fun writeEncryptionKeyToFile(encryptionKey: EncryptionKey): Uri {
-        val fileName = "${encryptionKey.name}.mck"
-        return writeObjectToFile(DIR_MCRYPT_KEYS, fileName, encryptionKey)
     }
 
     private fun isExternalStorageReadOnly(): Boolean {

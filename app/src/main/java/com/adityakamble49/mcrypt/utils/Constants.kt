@@ -15,6 +15,14 @@ class Constants {
         const val TEXT_INTENT = "text/plain"
     }
 
+    object MCryptDir {
+        const val MCRYPT_KEYS = "mcrypt_keys"
+    }
+
+    object MCryptFileFormats {
+        const val MCRYPT_KEYS = "mck"
+    }
+
     object ShareEncryptionType {
         const val TEXT = 0
         const val FILE = 1
