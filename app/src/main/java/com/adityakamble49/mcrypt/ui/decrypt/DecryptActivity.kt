@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.adityakamble49.mcrypt.R
@@ -59,6 +61,11 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
         commonViewModel.requestCurrentEncryptionKey(GetCurrentEncryptionKeySubscriber())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_decrypt, menu)
+        return true
+    }
+
 
     /*
      * Listener Functions
@@ -70,6 +77,14 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
             R.id.change_encryption_key -> startActivity(
                     Intent(this, KeyManagerActivity::class.java))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_reset -> handleResetDecryption()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
 
@@ -166,5 +181,13 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
         input_text.isEnabled = false
         input_text.setBackgroundResource(R.color.almost_white)
         input_text.setTextColor(ContextCompat.getColor(this, R.color.light_black))
+    }
+
+    private fun handleResetDecryption() {
+        isDecrypted = false
+        input_text.setText("")
+        input_text.isEnabled = true
+        input_text.setBackgroundResource(R.color.almost_black)
+        input_text.setTextColor(ContextCompat.getColor(this, R.color.white))
     }
 }

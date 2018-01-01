@@ -42,4 +42,5 @@
     <string name="encrypted_file_dialog_special_char_warning">Special characters not allowed</string>
 
     <string name="reset">Reset</string>
+    <string name="save">Save</string>
 </resources>
