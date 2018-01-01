@@ -164,7 +164,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener {
         isDecrypted = true
         input_text.setText(decryptedText)
         input_text.isEnabled = false
-        input_text.setBackgroundResource(R.color.white)
+        input_text.setBackgroundResource(R.color.almost_white)
         input_text.setTextColor(ContextCompat.getColor(this, R.color.light_black))
     }
 }
