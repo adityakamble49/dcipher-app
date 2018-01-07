@@ -54,35 +54,35 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    def mobileUiDependencies = rootProject.ext.mobileUiDependencies
-    def mobileUiTestDependencies = rootProject.ext.mobileUiTestDependencies
+    def appDependencies = rootProject.ext.appDependencies
+    def appTestDependencies = rootProject.ext.appTestDependencies
 
-    implementation mobileUiDependencies.kotlin
-    implementation mobileUiDependencies.appCompatV4
-    implementation mobileUiDependencies.appCompatV7
-    implementation mobileUiDependencies.supportDesign
-    implementation mobileUiDependencies.supportVector
-    implementation mobileUiDependencies.dagger
-    implementation mobileUiDependencies.daggerSupport
-    implementation mobileUiDependencies.rxAndroid
-    implementation mobileUiDependencies.rxKotlin
-    implementation mobileUiDependencies.roomRuntime
-    implementation mobileUiDependencies.roomRxJava
-    implementation mobileUiDependencies.archRuntime
-    implementation mobileUiDependencies.archExtensions
-    implementation mobileUiDependencies.timber
-    implementation mobileUiDependencies.getbaseFAB
-    implementation mobileUiDependencies.materialDialogsCore
-    implementation mobileUiDependencies.materialDialogsCommons
+    implementation appDependencies.kotlin
+    implementation appDependencies.appCompatV4
+    implementation appDependencies.appCompatV7
+    implementation appDependencies.supportDesign
+    implementation appDependencies.supportVector
+    implementation appDependencies.dagger
+    implementation appDependencies.daggerSupport
+    implementation appDependencies.rxAndroid
+    implementation appDependencies.rxKotlin
+    implementation appDependencies.roomRuntime
+    implementation appDependencies.roomRxJava
+    implementation appDependencies.archRuntime
+    implementation appDependencies.archExtensions
+    implementation appDependencies.timber
+    implementation appDependencies.getbaseFAB
+    implementation appDependencies.materialDialogsCore
+    implementation appDependencies.materialDialogsCommons
 
-    kapt mobileUiDependencies.daggerCompiler
-    kapt mobileUiDependencies.daggerProcessor
-    kapt mobileUiDependencies.roomCompiler
-    kapt mobileUiDependencies.archCompiler
+    kapt appDependencies.daggerCompiler
+    kapt appDependencies.daggerProcessor
+    kapt appDependencies.roomCompiler
+    kapt appDependencies.archCompiler
 
-    debugImplementation mobileUiDependencies.debugDb
+    debugImplementation appDependencies.debugDb
 
-    testImplementation mobileUiTestDependencies.junit
-    androidTestImplementation mobileUiTestDependencies.supportRunner
-    androidTestImplementation mobileUiTestDependencies.expressoCore
+    testImplementation appTestDependencies.junit
+    androidTestImplementation appTestDependencies.supportRunner
+    androidTestImplementation appTestDependencies.expressoCore
 }

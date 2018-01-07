@@ -32,7 +32,7 @@ ext {
     expressoVersion = '3.0.1'
     androidSupportRunnerVersion = '1.0.1'
 
-    mobileUiDependencies = [
+    appDependencies = [
             kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
             appCompatV4           : "com.android.support:support-v4:${supportLibraryVersion}",
             appCompatV7           : "com.android.support:appcompat-v7:${supportLibraryVersion}",
@@ -57,7 +57,7 @@ ext {
             debugDb               : "com.amitshekhar.android:debug-db:${debugDbVersion}"
     ]
 
-    mobileUiTestDependencies = [
+    appTestDependencies = [
             junit        : "junit:junit:${jUnitVersion}",
             supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
             expressoCore : "com.android.support.test.espresso:espresso-core:${expressoVersion}"
