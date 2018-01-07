@@ -14,7 +14,7 @@ ext {
 
     // Libraries
     kotlinVersion = '1.2.10'
-    supportLibraryVersion = '27.0.2'
+    supportLibraryVersion = '27.0.1'
     roomVersion = '1.0.0'
     javaxInjectVersion = '1'
     javaxAnnotationVersion = '1.0'
