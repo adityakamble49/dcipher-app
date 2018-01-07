@@ -41,6 +41,12 @@
     <string name="encrypted_file_dialog_prefill">Encrypted File 1</string>
     <string name="encrypted_file_dialog_special_char_warning">Special characters not allowed</string>
 
+    <string name="decrypted_file_dialog_title">Decrypted File Name</string>
+    <string name="decrypted_file_dialog_content">Give name to decrypted file</string>
+    <string name="decrypted_file_dialog_hint">Name for decrypted file</string>
+    <string name="decrypted_file_dialog_prefill">Decrypted File 1</string>
+    <string name="decrypted_file_dialog_special_char_warning">Special characters not allowed</string>
+
     <string name="reset">Reset</string>
     <string name="save">Save</string>
 </resources>
