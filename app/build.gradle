@@ -51,6 +51,14 @@ android {
     }
 }
 
+configurations.all {
+
+    def appDependencies = rootProject.ext.appDependencies
+
+    resolutionStrategy.force appDependencies.appCompatV4
+    resolutionStrategy.force appDependencies.appCompatV7
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -74,6 +82,8 @@ dependencies {
     implementation appDependencies.getbaseFAB
     implementation appDependencies.materialDialogsCore
     implementation appDependencies.materialDialogsCommons
+    implementation appDependencies.materialAbout
+    implementation appDependencies.gson
 
     kapt appDependencies.daggerCompiler
     kapt appDependencies.daggerProcessor
