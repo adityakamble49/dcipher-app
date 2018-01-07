@@ -51,6 +51,23 @@ class FileStorageHelper @Inject constructor(
         return fetchedObject
     }
 
+    fun writeFileToExternalStorage(fileDir: String, fileName: String, content: String) {
+        if (!isExternalStorageAvailable()) {
+            throw ExternalStorageException("External Storage not Available")
+        }
+        if (isExternalStorageReadOnly()) {
+            throw ExternalStorageException("External Storage read only")
+        }
+
+        val file = File("$fileDir/$fileName")
+        val fos = FileOutputStream(file)
+        val pw = PrintWriter(fos)
+        pw.print(content)
+        pw.flush()
+        pw.close()
+        fos.close()
+    }
+
     private fun isExternalStorageReadOnly(): Boolean {
         val externalStorageState = Environment.getExternalStorageState()
         if (Environment.MEDIA_MOUNTED_READ_ONLY == externalStorageState) return true
