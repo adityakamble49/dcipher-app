@@ -57,5 +57,10 @@
     <string name="text_empty">Text Empty!</string>
     <string name="decryption_success">Decryption Successful</string>
     <string name="decryption_failed">Decryption Failed</string>
+
     <string name="text_not_decrypted">Text not decrypted</string>
+    <string name="text_already_encrypted">Text Already Encrypted</string>
+    <string name="encryption_success">Encryption Successful</string>
+    <string name="encryption_failed">Encryption Failed</string>
+    <string name="text_not_encrypted">Text not encrypted</string>
 </resources>

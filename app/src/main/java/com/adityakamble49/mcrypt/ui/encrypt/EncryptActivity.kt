@@ -10,7 +10,6 @@ import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.exception.EncryptionKeyNotFoundException
 import com.adityakamble49.mcrypt.model.EncryptionKey
@@ -20,6 +19,7 @@ import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import com.adityakamble49.mcrypt.utils.Constants.Companion.TEXT_INTENT
 import com.adityakamble49.mcrypt.utils.Constants.ShareEncryptionType
 import com.adityakamble49.mcrypt.utils.hasSpecialChar
+import com.adityakamble49.mcrypt.utils.showToast
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
@@ -121,16 +121,16 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleEncryptText() {
         if (isEncrypted) {
-            Toast.makeText(this, "Text Already Encrypted", Toast.LENGTH_SHORT).show()
+            showToast(R.string.text_already_encrypted)
             return
         }
         if (currentEncryptionKey == null) {
-            Toast.makeText(this, "Key not loaded", Toast.LENGTH_SHORT).show()
+            showToast(R.string.key_not_loaded)
             return
         }
         val textToEncrypt = input_text.text.toString()
         if (textToEncrypt.isEmpty()) {
-            Toast.makeText(this, "Text Empty!", Toast.LENGTH_SHORT).show()
+            showToast(R.string.text_empty)
             return
         }
         currentEncryptionKey?.let {
@@ -143,11 +143,11 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
         override fun onSuccess(encryptedText: String) {
             handleEncryptedText(encryptedText)
-            Toast.makeText(this@EncryptActivity, "Encryption Successful", Toast.LENGTH_SHORT).show()
+            showToast(R.string.encryption_success)
         }
 
         override fun onError(e: Throwable) {
-            Toast.makeText(this@EncryptActivity, "Encryption Failed", Toast.LENGTH_SHORT).show()
+            showToast(R.string.encryption_failed)
         }
     }
 
@@ -169,7 +169,7 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleShareEncryption() {
         if (!isEncrypted) {
-            Toast.makeText(this, "Text not encrypted", Toast.LENGTH_SHORT).show()
+            showToast(R.string.text_not_encrypted)
             return
         }
         buildShareWithDialog().show()
