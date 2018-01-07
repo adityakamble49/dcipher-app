@@ -72,7 +72,8 @@ dependencies {
     implementation mobileUiDependencies.archExtensions
     implementation mobileUiDependencies.timber
     implementation mobileUiDependencies.getbaseFAB
-    implementation mobileUiDependencies.materialDialogs
+    implementation mobileUiDependencies.materialDialogsCore
+    implementation mobileUiDependencies.materialDialogsCommons
 
     kapt mobileUiDependencies.daggerCompiler
     kapt mobileUiDependencies.daggerProcessor

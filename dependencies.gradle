@@ -13,7 +13,7 @@ ext {
     androidCompileSdkVersion = 27
 
     // Libraries
-    kotlinVersion = '1.2.0'
+    kotlinVersion = '1.2.10'
     supportLibraryVersion = '27.0.2'
     roomVersion = '1.0.0'
     javaxInjectVersion = '1'
@@ -33,27 +33,28 @@ ext {
     androidSupportRunnerVersion = '1.0.1'
 
     mobileUiDependencies = [
-            kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
-            appCompatV4    : "com.android.support:support-v4:${supportLibraryVersion}",
-            appCompatV7    : "com.android.support:appcompat-v7:${supportLibraryVersion}",
-            supportDesign  : "com.android.support:design:${supportLibraryVersion}",
-            supportVector  : "com.android.support:support-vector-drawable:${supportLibraryVersion}",
-            dagger         : "com.google.dagger:dagger:${daggerVersion}",
-            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            daggerSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
-            daggerProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
-            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            rxKotlin       : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
-            roomRuntime    : "android.arch.persistence.room:runtime:${roomVersion}",
-            roomRxJava     : "android.arch.persistence.room:rxjava2:${roomVersion}",
-            roomCompiler   : "android.arch.persistence.room:compiler:${roomVersion}",
-            archRuntime    : "android.arch.lifecycle:runtime:${roomVersion}",
-            archExtensions : "android.arch.lifecycle:extensions:${roomVersion}",
-            archCompiler   : "android.arch.lifecycle:compiler:${roomVersion}",
-            timber         : "com.jakewharton.timber:timber:${timberVersion}",
-            getbaseFAB     : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
-            materialDialogs: "com.afollestad.material-dialogs:core:${materialDialogsVersion}",
-            debugDb        : "com.amitshekhar.android:debug-db:${debugDbVersion}"
+            kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            appCompatV4           : "com.android.support:support-v4:${supportLibraryVersion}",
+            appCompatV7           : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            supportDesign         : "com.android.support:design:${supportLibraryVersion}",
+            supportVector         : "com.android.support:support-vector-drawable:${supportLibraryVersion}",
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerSupport         : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerProcessor       : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            rxKotlin              : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
+            roomRuntime           : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomRxJava            : "android.arch.persistence.room:rxjava2:${roomVersion}",
+            roomCompiler          : "android.arch.persistence.room:compiler:${roomVersion}",
+            archRuntime           : "android.arch.lifecycle:runtime:${roomVersion}",
+            archExtensions        : "android.arch.lifecycle:extensions:${roomVersion}",
+            archCompiler          : "android.arch.lifecycle:compiler:${roomVersion}",
+            timber                : "com.jakewharton.timber:timber:${timberVersion}",
+            getbaseFAB            : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
+            materialDialogsCore   : "com.afollestad.material-dialogs:core:${materialDialogsVersion}",
+            materialDialogsCommons: "com.afollestad.material-dialogs:commons:${materialDialogsVersion}",
+            debugDb               : "com.amitshekhar.android:debug-db:${debugDbVersion}"
     ]
 
     mobileUiTestDependencies = [
