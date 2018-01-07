@@ -14,7 +14,6 @@ import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.exception.EncryptionKeyNotFoundException
 import com.adityakamble49.mcrypt.model.EncryptionKey
@@ -22,6 +21,7 @@ import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import com.adityakamble49.mcrypt.utils.hasSpecialChar
+import com.adityakamble49.mcrypt.utils.showToast
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog
@@ -184,16 +184,16 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun handleDecryptText() {
         if (isDecrypted) {
-            Toast.makeText(this, "Text Already Decrypted", Toast.LENGTH_SHORT).show()
+            showToast(R.string.text_already_decrypted)
             return
         }
         if (currentEncryptionKey == null) {
-            Toast.makeText(this, "Key not loaded", Toast.LENGTH_SHORT).show()
+            showToast(R.string.key_not_loaded)
             return
         }
         val textToEncrypt = input_text.text.toString()
         if (textToEncrypt.isEmpty()) {
-            Toast.makeText(this, "Text Empty!", Toast.LENGTH_SHORT).show()
+            showToast(R.string.text_empty)
             return
         }
         currentEncryptionKey?.let {
@@ -206,12 +206,12 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
 
         override fun onSuccess(decryptedText: String) {
             handleDecryptedText(decryptedText)
-            Toast.makeText(this@DecryptActivity, "Decryption Successful", Toast.LENGTH_SHORT).show()
+            showToast(R.string.decryption_success)
         }
 
         override fun onError(e: Throwable) {
             Timber.i(e)
-            Toast.makeText(this@DecryptActivity, "Decryption Failed", Toast.LENGTH_SHORT).show()
+            showToast(R.string.decryption_failed)
         }
     }
 
@@ -233,7 +233,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun handleSaveDecryption() {
         if (!isDecrypted) {
-            Toast.makeText(this, "Text not decrypted", Toast.LENGTH_LONG).show()
+            showToast(R.string.text_not_decrypted)
             return
         }
         performExternalStorageOperation(REQ_SAVE_DECRYPTED_FILE, { saveDecryptedTextToFile() })
@@ -291,12 +291,12 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
         override fun onSubscribe(d: Disposable) {}
 
         override fun onComplete() {
-            Toast.makeText(this@DecryptActivity, "Text Saved", Toast.LENGTH_SHORT).show()
+            showToast(R.string.decrypted_text_save_success)
         }
 
         override fun onError(e: Throwable) {
             Timber.e(e)
-            Toast.makeText(this@DecryptActivity, "Text save failed", Toast.LENGTH_SHORT).show()
+            showToast(R.string.decrypted_text_save_failure)
         }
     }
 }

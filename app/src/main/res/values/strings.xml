@@ -49,4 +49,13 @@
 
     <string name="reset">Reset</string>
     <string name="save">Save</string>
+    <string name="decrypted_text_save_success">Text Saved</string>
+    <string name="decrypted_text_save_failure">Text save failed</string>
+    <string name="text_already_decrypted">Text Already Decrypted</string>
+
+    <string name="key_not_loaded">Key not loaded</string>
+    <string name="text_empty">Text Empty!</string>
+    <string name="decryption_success">Decryption Successful</string>
+    <string name="decryption_failed">Decryption Failed</string>
+    <string name="text_not_decrypted">Text not decrypted</string>
 </resources>
