@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.adityakamble49.mcrypt.R
+import com.adityakamble49.mcrypt.ui.about.AboutActivity
 import com.adityakamble49.mcrypt.ui.common.CommonViewModel
 import com.adityakamble49.mcrypt.ui.common.CommonViewModelFactory
 import com.adityakamble49.mcrypt.ui.decrypt.DecryptActivity
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_key_manager -> startActivity(Intent(this, KeyManagerActivity::class.java))
+            R.id.action_about -> startActivity(Intent(this, AboutActivity::class.java))
         }
         return true
     }

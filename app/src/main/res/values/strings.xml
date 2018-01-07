@@ -63,4 +63,14 @@
     <string name="encryption_success">Encryption Successful</string>
     <string name="encryption_failed">Encryption Failed</string>
     <string name="text_not_encrypted">Text not encrypted</string>
+
+    <string name="about">About</string>
+    <string name="version">Version</string>
+    <string name="changelog">Changelog</string>
+    <string name="about_mcrypt">About MCrypt</string>
+    <string name="developer">Developer</string>
+    <string name="developer_name">Aditya Kamble</string>
+    <string name="developer_country">India</string>
+    <string name="view_portfolio">View Portfolio</string>
+    <string name="license">License</string>
 </resources>
