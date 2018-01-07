@@ -1,6 +1,7 @@
 package com.adityakamble49.mcrypt.ui.about
 
 import android.content.Context
+import com.adityakamble49.mcrypt.BuildConfig
 import com.adityakamble49.mcrypt.R
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
@@ -30,7 +31,7 @@ class AboutActivity : MaterialAboutActivity() {
 
         appCardBuilder.addItem(MaterialAboutActionItem.Builder()
                 .text(R.string.version)
-                .subText(getVersion())
+                .subText(BuildConfig.VERSION_NAME)
                 .icon(R.drawable.ic_version)
                 .build())
 
@@ -64,10 +65,5 @@ class AboutActivity : MaterialAboutActivity() {
         listBuilder.addCard(developerCardBuilder.build())
 
         return listBuilder.build()
-    }
-
-    private fun getVersion(): String {
-        val packageInfo = packageManager.getPackageInfo(packageName, 0)
-        return packageInfo.versionName
     }
 }
