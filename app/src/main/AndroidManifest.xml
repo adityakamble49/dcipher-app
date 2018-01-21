@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +24,12 @@
         </activity>
         <activity
             android:name=".ui.encrypt.EncryptActivity"
-            android:label="@string/encryption" />
+            android:label="@string/encryption"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.decrypt.DecryptActivity"
-            android:label="@string/decryption">
+            android:label="@string/decryption"
+            android:screenOrientation="portrait">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -44,7 +48,8 @@
             android:name=".ui.keys.KeyManagerActivity"
             android:label="@string/key_manager"
             android:launchMode="singleTask"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -61,6 +66,7 @@
         </activity>
         <activity
             android:name=".ui.about.AboutActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
     </application>
 
