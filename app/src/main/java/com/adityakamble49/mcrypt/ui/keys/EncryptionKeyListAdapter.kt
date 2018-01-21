@@ -7,7 +7,7 @@ import android.widget.AdapterView
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.utils.inflate
-import kotlinx.android.synthetic.main.rsa_key_item.view.*
+import kotlinx.android.synthetic.main.key_item.view.*
 
 /**
  * @author Aditya Kamble
@@ -22,7 +22,7 @@ class EncryptionKeyListAdapter : RecyclerView.Adapter<EncryptionKeyListAdapter.V
     override fun getItemCount() = encryptionKeyList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-            parent.inflate(R.layout.rsa_key_item))
+            parent.inflate(R.layout.key_item))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(
             encryptionKeyList[position])
@@ -31,12 +31,12 @@ class EncryptionKeyListAdapter : RecyclerView.Adapter<EncryptionKeyListAdapter.V
             View.OnClickListener {
 
         init {
-            itemView.rsa_key_options.setOnClickListener(this@ViewHolder)
+            itemView.key_options.setOnClickListener(this@ViewHolder)
         }
 
         fun bind(encryptionKey: EncryptionKey) = with(itemView) {
-            rsa_key_pair_name.text = encryptionKey.name
-            rsa_key_options.setOnClickListener(this@ViewHolder)
+            key_pair_name.text = encryptionKey.name
+            key_options.setOnClickListener(this@ViewHolder)
         }
 
         override fun onClick(view: View?) {

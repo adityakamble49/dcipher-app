@@ -8,26 +8,26 @@
     <string name="decrypt_text_hint">Enter text to Decrypt</string>
     <string name="encryption">Encryption</string>
     <string name="decryption">Decryption</string>
-    <string name="rsa_key_pair_name_placeholder">RSA Key Pair Name</string>
+    <string name="key_pair_name_placeholder">Key Pair Name</string>
     <string name="key_manager">Key Manager</string>
 
-    <string name="rsa_key_options">RSA Key Options</string>
+    <string name="key_options">Key Options</string>
     <string name="use">Use</string>
     <string name="share">Share</string>
     <string name="delete">Delete</string>
 
     <string name="generate_key_dialog_title">Generate Key Pair</string>
-    <string name="generate_key_dialog_content">Generate Public and Private RSA Key Pair</string>
+    <string name="generate_key_dialog_content">Generate Public and Private Key Pair</string>
     <string name="generate_key_dialog_hint">Key Pair Name</string>
     <string name="generate_key_dialog_prefill">Default Key 1</string>
     <string name="generate_key_dialog_special_char_warning">Special characters not allowed</string>
 
-    <string name="encryption_key_added_success">RSA Key Added</string>
-    <string name="encryption_key_generation_failed_name_present">RSA Key Name Present!</string>
+    <string name="encryption_key_added_success">Key Added</string>
+    <string name="encryption_key_generation_failed_name_present">Key Name Present!</string>
     <string name="loaded_key_placeholder">Loaded Key - %1$s</string>
     <string name="change">Change</string>
-    <string name="encryption_key_delete_success">RSA Key deleted</string>
-    <string name="encryption_key_delete_failed_in_use">RSA Key in Use! Can\'t be deleted</string>
+    <string name="encryption_key_delete_success">Key deleted</string>
+    <string name="encryption_key_delete_failed_in_use">Key in Use! Can\'t be deleted</string>
     <string name="encryption_key_from_file_failed_invalid">Invalid Key</string>
 
     <string name="import_key_dialog_title">Import Key?</string>
