@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -12,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.adityakamble49.mcrypt"
         versionCode 1
-        versionName "0.1"
+        versionName "0.3"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -84,6 +85,7 @@ dependencies {
     implementation appDependencies.materialDialogsCommons
     implementation appDependencies.materialAbout
     implementation appDependencies.gson
+    implementation appDependencies.ossLicenses
 
     kapt appDependencies.daggerCompiler
     kapt appDependencies.daggerProcessor

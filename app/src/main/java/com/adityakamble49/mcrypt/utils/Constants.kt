@@ -32,4 +32,10 @@ class Constants {
         const val TEXT = 0
         const val FILE = 1
     }
+
+    object ReferenceUrls {
+        const val PERSONAL_WEBSITE = "http://adityakamble49.com"
+        const val GITHUB_PROFILE = "https://github.com/adityakamble49"
+        const val TWITTER_PROFILE = "https://twitter.com/adityakamble49"
+    }
 }
