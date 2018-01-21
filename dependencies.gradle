@@ -2,6 +2,7 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -14,7 +15,7 @@ ext {
 
     // Libraries
     kotlinVersion = '1.2.10'
-    supportLibraryVersion = '27.0.1'
+    supportLibraryVersion = '27.0.2'
     roomVersion = '1.0.0'
     javaxInjectVersion = '1'
     javaxAnnotationVersion = '1.0'
@@ -26,6 +27,9 @@ ext {
     getbaseFABVersion = '1.10.1'
     materialDialogsVersion = '0.9.6.0'
     debugDbVersion = '1.0.1'
+    materialAboutVersion = '2.2.3'
+    gsonVersion = '2.8.2'
+    googleServicesVersion = '11.8.0'
 
     // Testing
     jUnitVersion = '4.12'
@@ -54,12 +58,15 @@ ext {
             getbaseFAB            : "com.getbase:floatingactionbutton:${getbaseFABVersion}",
             materialDialogsCore   : "com.afollestad.material-dialogs:core:${materialDialogsVersion}",
             materialDialogsCommons: "com.afollestad.material-dialogs:commons:${materialDialogsVersion}",
-            debugDb               : "com.amitshekhar.android:debug-db:${debugDbVersion}"
+            debugDb               : "com.amitshekhar.android:debug-db:${debugDbVersion}",
+            materialAbout         : "com.github.daniel-stoneuk:material-about-library:${materialAboutVersion}",
+            gson                  : "com.google.code.gson:gson:${gsonVersion}",
+            ossLicenses           : "com.google.android.gms:play-services-oss-licenses:${googleServicesVersion}",
     ]
 
     appTestDependencies = [
             junit        : "junit:junit:${jUnitVersion}",
             supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
-            expressoCore : "com.android.support.test.espresso:espresso-core:${expressoVersion}"
+            expressoCore : "com.android.support.test.espresso:espresso-core:${expressoVersion}",
     ]
 }

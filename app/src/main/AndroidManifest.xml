@@ -59,6 +59,9 @@
                     android:pathPattern=".*\\.mck" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:theme="@style/AppTheme.MaterialAboutActivity" />
     </application>
 
 </manifest>
