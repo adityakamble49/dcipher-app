@@ -15,14 +15,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import com.adityakamble49.mcrypt.AppExecutors
 import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.cache.PreferenceHelper
 import com.adityakamble49.mcrypt.interactor.EncryptionKeyInUseException
 import com.adityakamble49.mcrypt.model.EncryptionKey
 import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.utils.hasSpecialChar
-import com.adityakamble49.mcrypt.utils.updateUI
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
@@ -43,7 +41,6 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         View.OnClickListener {
 
     // Dagger Injected Fields
-    @Inject lateinit var appExecutors: AppExecutors
     @Inject lateinit var keyManagerViewModelFactory: KeyManagerViewModelFactory
     @Inject lateinit var preferenceHelper: PreferenceHelper
 
@@ -164,10 +161,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private fun observeEncryptionKeyList() {
         keyManagerViewModel.encryptionKeyList.observe(this, Observer<List<EncryptionKey>> {
             it?.let {
-                appExecutors.updateUI {
-                    encryptionKeyListAdapter.encryptionKeyList = it
-                    encryptionKeyListAdapter.notifyDataSetChanged()
-                }
+                encryptionKeyListAdapter.encryptionKeyList = it
+                encryptionKeyListAdapter.notifyDataSetChanged()
             }
         })
     }
