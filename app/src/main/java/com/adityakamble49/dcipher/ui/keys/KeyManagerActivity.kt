@@ -21,6 +21,8 @@ import com.adityakamble49.dcipher.interactor.EncryptionKeyInUseException
 import com.adityakamble49.dcipher.model.EncryptionKey
 import com.adityakamble49.dcipher.ui.MainActivity
 import com.adityakamble49.dcipher.utils.hasSpecialChar
+import com.adityakamble49.dcipher.utils.makeGone
+import com.adityakamble49.dcipher.utils.makeVisible
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import dagger.android.AndroidInjection
@@ -166,10 +168,19 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private fun observeEncryptionKeyList() {
         keyManagerViewModel.encryptionKeyList.observe(this, Observer<List<EncryptionKey>> {
             it?.let {
+                toggleKeyListEmptyView(it.size)
                 encryptionKeyListAdapter.encryptionKeyList = it
                 encryptionKeyListAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    private fun toggleKeyListEmptyView(size: Int) {
+        if (size < 1) {
+            key_list_empty_view.makeVisible()
+        } else {
+            key_list_empty_view.makeGone()
+        }
     }
 
     private fun handleIntentExtras(intent: Intent?) {

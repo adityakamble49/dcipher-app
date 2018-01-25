@@ -74,4 +74,5 @@
     <string name="view_portfolio">View Portfolio</string>
     <string name="license">License</string>
     <string name="file_format_error_message">File format unsupported</string>
+    <string name="key_list_empty_error_message">Key List Empty !</string>
 </resources>
