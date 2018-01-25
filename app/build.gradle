@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.adityakamble49.dcipher"
         versionCode 1
-        versionName "0.4"
+        versionName "0.5"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
