@@ -8,6 +8,7 @@ import com.adityakamble49.mcrypt.R
 import com.adityakamble49.mcrypt.interactor.GetFileTypeUseCase
 import com.adityakamble49.mcrypt.model.FileType
 import com.adityakamble49.mcrypt.ui.decrypt.DecryptActivity
+import com.adityakamble49.mcrypt.ui.encrypt.EncryptActivity
 import com.adityakamble49.mcrypt.ui.keys.KeyManagerActivity
 import com.adityakamble49.mcrypt.utils.makeVisible
 import dagger.android.AndroidInjection
@@ -71,6 +72,7 @@ class FileIntentActivity : AppCompatActivity() {
         when (fileType) {
             FileType.MKF -> startKeyManagerActivity()
             FileType.MEF -> startDecryptActivity()
+            FileType.TXT -> startEncryptActivity()
             FileType.UNKNOWN -> showFileUnsupportedMessage()
         }
     }
@@ -79,6 +81,13 @@ class FileIntentActivity : AppCompatActivity() {
         val keyManagerActivityIntent = Intent(this, KeyManagerActivity::class.java)
         keyManagerActivityIntent.data = currentUri
         startActivity(keyManagerActivityIntent)
+        finish()
+    }
+
+    private fun startEncryptActivity() {
+        val encryptActivityIntent = Intent(this, EncryptActivity::class.java)
+        encryptActivityIntent.data = currentUri
+        startActivity(encryptActivityIntent)
         finish()
     }
 

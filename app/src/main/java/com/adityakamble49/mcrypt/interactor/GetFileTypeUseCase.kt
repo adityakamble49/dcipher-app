@@ -41,6 +41,7 @@ class GetFileTypeUseCase @Inject constructor(
         return when (fileExtension) {
             MCryptFileFormats.MCRYPT_KEY -> FileType.MKF
             MCryptFileFormats.MCRYPT_ENCRYPTED_FILE -> FileType.MEF
+            MCryptFileFormats.MCRYPT_DECRYPTED_FILE -> FileType.TXT
             else -> FileType.UNKNOWN
         }
     }

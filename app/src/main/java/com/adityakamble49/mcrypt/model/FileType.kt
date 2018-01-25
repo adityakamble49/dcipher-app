@@ -7,5 +7,5 @@ package com.adityakamble49.mcrypt.model
  * @since 25/1/2018
  */
 enum class FileType {
-    MEF, MKF, UNKNOWN
+    MEF, MKF, TXT, UNKNOWN
 }
