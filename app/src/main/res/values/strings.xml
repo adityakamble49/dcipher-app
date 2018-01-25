@@ -73,4 +73,5 @@
     <string name="developer_country">India</string>
     <string name="view_portfolio">View Portfolio</string>
     <string name="license">License</string>
+    <string name="file_format_error_message">File format unsupported</string>
 </resources>

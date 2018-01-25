@@ -74,7 +74,12 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         observeEncryptionKeyList()
 
         // Get intent extras
-        handleIntentExtras()
+        handleIntentExtras(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntentExtras(intent)
     }
 
     override fun onBackPressed() {
@@ -167,8 +172,8 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         })
     }
 
-    private fun handleIntentExtras() {
-        val uri: Uri? = intent.data
+    private fun handleIntentExtras(intent: Intent?) {
+        val uri: Uri? = intent?.data
         Timber.i(uri.toString())
         uri?.let {
             keyManagerViewModel.getEncryptionKeyFromFile(it, GetEncryptionKeyFromFileSubscriber())
