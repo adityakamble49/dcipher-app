@@ -23,8 +23,8 @@ class Constants {
     }
 
     object MCryptFileFormats {
-        const val MCRYPT_KEY = "mck"
-        const val MCRYPT_ENCRYPTED_FILE = "mcef"
+        const val MCRYPT_KEY = "mkf"
+        const val MCRYPT_ENCRYPTED_FILE = "mef"
         const val MCRYPT_DECRYPTED_FILE = "txt"
     }
 
