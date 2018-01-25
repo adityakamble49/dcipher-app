@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.adityakamble49.mcrypt"
         versionCode 1
-        versionName "0.3"
+        versionName "0.4"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
