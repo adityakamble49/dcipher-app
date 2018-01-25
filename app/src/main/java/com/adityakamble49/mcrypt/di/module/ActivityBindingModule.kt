@@ -1,6 +1,7 @@
 package com.adityakamble49.mcrypt.di.module
 
 import com.adityakamble49.mcrypt.di.scope.PerActivity
+import com.adityakamble49.mcrypt.ui.FileIntentActivity
 import com.adityakamble49.mcrypt.ui.MainActivity
 import com.adityakamble49.mcrypt.ui.decrypt.DecryptActivity
 import com.adityakamble49.mcrypt.ui.encrypt.EncryptActivity
@@ -34,4 +35,8 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = [(KeyManagerActivityModule::class)])
     abstract fun contributeKeyManagerActivity(): KeyManagerActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun contributeFileIntentActivity(): FileIntentActivity
 }
