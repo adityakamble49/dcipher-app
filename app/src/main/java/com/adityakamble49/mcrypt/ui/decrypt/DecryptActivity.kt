@@ -70,12 +70,17 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
         bindView()
 
         // Get intent extras
-        handleIntentExtras()
+        handleIntentExtras(intent)
     }
 
     override fun onResume() {
         super.onResume()
         commonViewModel.requestCurrentEncryptionKey(GetCurrentEncryptionKeySubscriber())
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntentExtras(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -157,8 +162,8 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    private fun handleIntentExtras() {
-        val uri: Uri? = intent.data
+    private fun handleIntentExtras(intent: Intent?) {
+        val uri: Uri? = intent?.data
         Timber.i(uri.toString())
         uri?.let {
             decryptViewModel.getEncryptedTextFromFile(uri, GetEncryptedTextFromFileSubscriber())
