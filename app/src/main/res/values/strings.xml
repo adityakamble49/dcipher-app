@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MCrypt</string>
+    <string name="app_name">DCipher</string>
 
     <string name="encrypt_text">Encrypt Text</string>
     <string name="decrypt_text">Decrypt Text</string>
@@ -67,7 +67,7 @@
     <string name="about">About</string>
     <string name="version">Version</string>
     <string name="changelog">Changelog</string>
-    <string name="about_mcrypt">About MCrypt</string>
+    <string name="about_dcipher">About DCipher</string>
     <string name="developer">Developer</string>
     <string name="developer_name">Aditya Kamble</string>
     <string name="developer_country">India</string>

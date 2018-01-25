@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.adityakamble49.mcrypt">
+    package="com.adityakamble49.dcipher">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MCryptApp"
+        android:name="com.adityakamble49.dcipher.DCipherApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.adityakamble49.dcipher.ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,27 +23,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.encrypt.EncryptActivity"
+            android:name="com.adityakamble49.dcipher.ui.encrypt.EncryptActivity"
             android:label="@string/encryption"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.decrypt.DecryptActivity"
+            android:name="com.adityakamble49.dcipher.ui.decrypt.DecryptActivity"
             android:label="@string/decryption"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.keys.KeyManagerActivity"
+            android:name="com.adityakamble49.dcipher.ui.keys.KeyManagerActivity"
             android:label="@string/key_manager"
             android:launchMode="singleTask"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName="com.adityakamble49.dcipher.ui.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.about.AboutActivity"
+            android:name="com.adityakamble49.dcipher.ui.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity
-            android:name=".ui.FileIntentActivity"
+            android:name="com.adityakamble49.dcipher.ui.FileIntentActivity"
             android:screenOrientation="portrait">
             <intent-filter
                 android:icon="@mipmap/ic_launcher"

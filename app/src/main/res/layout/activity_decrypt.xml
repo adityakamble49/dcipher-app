@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.adityakamble49.mcrypt.ui.decrypt.DecryptActivity">
+    tools:context="com.adityakamble49.dcipher.ui.decrypt.DecryptActivity">
 
     <EditText
         android:id="@+id/input_text"

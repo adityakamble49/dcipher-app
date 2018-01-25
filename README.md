@@ -1,3 +1,3 @@
-# MCrypt
+# DCipher
 
-Simple Text Encryption using RSA
+Send Secret Messages with 100% Offline Encryption

@@ -11,7 +11,7 @@ android {
     buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
     defaultConfig {
-        applicationId "com.adityakamble49.mcrypt"
+        applicationId "com.adityakamble49.dcipher"
         versionCode 1
         versionName "0.4"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
