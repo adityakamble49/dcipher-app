@@ -1,8 +1,10 @@
 package com.adityakamble49.mcrypt.cache.file
 
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
+import android.provider.OpenableColumns
 import com.adityakamble49.mcrypt.di.scope.PerApplication
 import java.io.*
 import javax.inject.Inject
@@ -49,6 +51,27 @@ class FileStorageHelper @Inject constructor(
         ois.close()
         fis.close()
         return fetchedObject
+    }
+
+    fun getFileName(uri: Uri): String {
+        if (!isExternalStorageAvailable()) {
+            throw ExternalStorageException("External Storage not Available")
+        }
+        if (isExternalStorageReadOnly()) {
+            throw ExternalStorageException("External Storage read only")
+        }
+
+        lateinit var cursor: Cursor
+        lateinit var result: String
+        try {
+            cursor = appContext.contentResolver.query(uri, null, null, null, null)
+            if(cursor!=null && cursor.moveToFirst()){
+                result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            }
+            return result
+        } finally {
+            cursor.close()
+        }
     }
 
     fun writeFileToExternalStorage(fileDir: String, fileName: String, content: String) {
