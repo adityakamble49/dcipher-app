@@ -2,6 +2,7 @@ package com.adityakamble49.mcrypt.di.module
 
 import com.adityakamble49.mcrypt.di.scope.PerActivity
 import com.adityakamble49.mcrypt.interactor.EncryptTextUseCase
+import com.adityakamble49.mcrypt.interactor.GetTextFromFileUseCase
 import com.adityakamble49.mcrypt.interactor.SaveEncryptedTextToFileUseCase
 import com.adityakamble49.mcrypt.ui.encrypt.EncryptViewModelFactory
 import dagger.Module
@@ -20,7 +21,8 @@ class EncryptActivityModule {
     @PerActivity
     fun provideEncryptViewModelFactory(
             encryptTextUseCase: EncryptTextUseCase,
-            saveEncryptedTextToFileUseCase: SaveEncryptedTextToFileUseCase):
+            saveEncryptedTextToFileUseCase: SaveEncryptedTextToFileUseCase,
+            getTextFromFileUseCase: GetTextFromFileUseCase):
             EncryptViewModelFactory = EncryptViewModelFactory(encryptTextUseCase,
-            saveEncryptedTextToFileUseCase)
+            saveEncryptedTextToFileUseCase, getTextFromFileUseCase)
 }
