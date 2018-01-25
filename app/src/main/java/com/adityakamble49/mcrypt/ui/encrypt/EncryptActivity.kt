@@ -57,11 +57,19 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
                 EncryptViewModel::class.java)
 
         bindView()
+
+        // Get intent extras
+        handleIntentExtras(intent)
     }
 
     override fun onResume() {
         super.onResume()
         commonViewModel.requestCurrentEncryptionKey(GetCurrentEncryptionKeySubscriber())
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntentExtras(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -97,6 +105,29 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
     private fun bindView() {
         encrypt_button.setOnClickListener(this)
         change_encryption_key.setOnClickListener(this)
+    }
+
+    private fun handleIntentExtras(intent: Intent?) {
+        val uri: Uri? = intent?.data
+        Timber.i(uri.toString())
+        uri?.let {
+            encryptViewModel.getTextFromFile(uri, GetTextFromFileSubscriber())
+        }
+    }
+
+    private inner class GetTextFromFileSubscriber : SingleObserver<String> {
+        override fun onSubscribe(d: Disposable) {}
+
+        override fun onSuccess(text: String) {
+            updateInputText(text)
+        }
+
+        override fun onError(e: Throwable) {
+        }
+    }
+
+    private fun updateInputText(text: String) {
+        input_text.setText(text)
     }
 
     private inner class GetCurrentEncryptionKeySubscriber : Observer<EncryptionKey> {

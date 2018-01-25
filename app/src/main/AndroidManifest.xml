@@ -25,6 +25,7 @@
         <activity
             android:name=".ui.encrypt.EncryptActivity"
             android:label="@string/encryption"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.decrypt.DecryptActivity"
@@ -41,7 +42,8 @@
             android:name=".ui.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
-        <activity android:name=".ui.FileIntentActivity"
+        <activity
+            android:name=".ui.FileIntentActivity"
             android:screenOrientation="portrait">
             <intent-filter
                 android:icon="@mipmap/ic_launcher"
