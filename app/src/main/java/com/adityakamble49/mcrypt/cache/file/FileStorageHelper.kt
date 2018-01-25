@@ -53,6 +53,23 @@ class FileStorageHelper @Inject constructor(
         return fetchedObject
     }
 
+    fun readTextFromFile(uri: Uri): String {
+        if (!isExternalStorageAvailable()) {
+            throw ExternalStorageException("External Storage not Available")
+        }
+        if (isExternalStorageReadOnly()) {
+            throw ExternalStorageException("External Storage read only")
+        }
+
+        val fis = appContext.contentResolver.openInputStream(uri)
+        val br = BufferedReader(InputStreamReader(fis))
+        val sb = StringBuilder()
+        br.lineSequence().forEach { sb.append(it).append("\n") }
+        br.close()
+        fis.close()
+        return sb.toString()
+    }
+
     fun getFileName(uri: Uri): String {
         if (!isExternalStorageAvailable()) {
             throw ExternalStorageException("External Storage not Available")
@@ -65,7 +82,7 @@ class FileStorageHelper @Inject constructor(
         lateinit var result: String
         try {
             cursor = appContext.contentResolver.query(uri, null, null, null, null)
-            if(cursor!=null && cursor.moveToFirst()){
+            if (cursor != null && cursor.moveToFirst()) {
                 result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
             }
             return result
