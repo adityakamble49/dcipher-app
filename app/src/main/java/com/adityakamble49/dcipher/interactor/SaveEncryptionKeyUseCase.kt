@@ -21,6 +21,7 @@ class SaveEncryptionKeyUseCase @Inject constructor(
     private fun buildUseCaseObservable(encryptionKey: EncryptionKey): Completable {
         return Completable.create(object : CompletableOnSubscribe {
             override fun subscribe(e: CompletableEmitter) {
+                encryptionKey.id = 0
                 encryptionKeyRepo.insertEncryptionKey(encryptionKey)
                 e.onComplete()
             }
