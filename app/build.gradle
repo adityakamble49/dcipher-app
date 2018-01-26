@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId "com.adityakamble49.dcipher"
-        versionCode 2
-        versionName "0.7"
+        versionCode 3
+        versionName "0.8"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -26,6 +26,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

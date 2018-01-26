@@ -2,7 +2,10 @@ package com.adityakamble49.dcipher.interactor
 
 import android.net.Uri
 import com.adityakamble49.dcipher.cache.file.FileStorageHelper
+import com.adityakamble49.dcipher.data.mapper.KeySpecMapper
 import com.adityakamble49.dcipher.model.EncryptionKey
+import com.adityakamble49.dcipher.model.EncryptionKeyShare
+import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
@@ -17,7 +20,8 @@ import javax.inject.Inject
  * @since 24/12/2017
  */
 class GetEncryptionKeyFromFileUseCase @Inject constructor(
-        private val fileStorageHelper: FileStorageHelper) {
+        private val fileStorageHelper: FileStorageHelper,
+        private val keySpecMapper: KeySpecMapper) {
 
     private fun buildUseCaseObservable(uri: Uri): Single<EncryptionKey> {
         return Single.create(object : SingleOnSubscribe<EncryptionKey> {
@@ -29,7 +33,9 @@ class GetEncryptionKeyFromFileUseCase @Inject constructor(
     }
 
     private fun fetchEncryptionKeyFromFile(uri: Uri): EncryptionKey {
-        return fileStorageHelper.readObjectFromFile(uri) as EncryptionKey
+        val encryptionKeyStr = fileStorageHelper.readObjectFromFile(uri) as String
+        val encryptionKeyShare = Gson().fromJson(encryptionKeyStr, EncryptionKeyShare::class.java)
+        return keySpecMapper.encryptionShareToKey(encryptionKeyShare)
     }
 
     fun execute(uri: Uri): Single<EncryptionKey> {
