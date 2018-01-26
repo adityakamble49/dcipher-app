@@ -326,7 +326,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             createShareIntent(t)
         }
 
-        override fun onError(e: Throwable) {}
+        override fun onError(e: Throwable) {
+            Timber.i(e)
+        }
     }
 
     private fun handleDeleteKey(position: Int) {
