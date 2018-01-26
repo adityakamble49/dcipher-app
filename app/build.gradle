@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -58,6 +58,7 @@ configurations.all {
 
     resolutionStrategy.force appDependencies.appCompatV4
     resolutionStrategy.force appDependencies.appCompatV7
+    resolutionStrategy.force appDependencies.supportAnnotation
 }
 
 dependencies {
