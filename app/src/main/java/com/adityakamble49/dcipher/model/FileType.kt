@@ -7,5 +7,5 @@ package com.adityakamble49.dcipher.model
  * @since 25/1/2018
  */
 enum class FileType {
-    EncryptedText, EncryptionKey, TXT, UNKNOWN
+    DCF, DKF, TXT, UNKNOWN
 }

@@ -23,8 +23,8 @@ class Constants {
     }
 
     object DCipherFileFormats {
-        const val DCIPHER_KEY = "json"
-        const val DCIPHER_ENCRYPTED_FILE = "json"
+        const val DCIPHER_KEY = "dkf"
+        const val DCIPHER_ENCRYPTED_FILE = "dcf"
         const val DCIPHER_DECRYPTED_FILE = "txt"
     }
 

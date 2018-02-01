@@ -70,8 +70,8 @@ class FileIntentActivity : AppCompatActivity() {
 
     private fun openActivityByType(fileType: FileType) {
         when (fileType) {
-            FileType.EncryptionKey -> startKeyManagerActivity()
-            FileType.EncryptedText -> startDecryptActivity()
+            FileType.DKF -> startKeyManagerActivity()
+            FileType.DCF -> startDecryptActivity()
             FileType.TXT -> startEncryptActivity()
             FileType.UNKNOWN -> showFileUnsupportedMessage()
         }
