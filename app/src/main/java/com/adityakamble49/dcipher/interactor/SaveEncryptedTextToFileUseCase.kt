@@ -2,8 +2,10 @@ package com.adityakamble49.dcipher.interactor
 
 import android.net.Uri
 import com.adityakamble49.dcipher.cache.file.FileStorageHelper
+import com.adityakamble49.dcipher.model.EncryptedText
 import com.adityakamble49.dcipher.utils.Constants.DCipherDir
 import com.adityakamble49.dcipher.utils.Constants.DCipherFileFormats
+import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
@@ -32,8 +34,10 @@ class SaveEncryptedTextToFileUseCase @Inject constructor(
 
     private fun writeEncryptedTextToFile(encryptedFileName: String, encryptedText: String): Uri {
         val fileName = "$encryptedFileName.${DCipherFileFormats.DCIPHER_ENCRYPTED_FILE}"
+        val encryptedTextObj = EncryptedText(encryptedText)
+        val encryptedTextStr = Gson().toJson(encryptedTextObj)
         return fileStorageHelper.writeObjectToFile(DCipherDir.DCIPHER_ENCRYPTED_FILES, fileName,
-                encryptedText)
+                encryptedTextStr)
     }
 
     fun execute(encryptedFileName: String, encryptedText: String): Single<Uri> {

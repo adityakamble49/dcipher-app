@@ -40,7 +40,7 @@ class GetFileTypeUseCase @Inject constructor(
         Timber.i(fileExtension)
         return when (fileExtension) {
             DCipherFileFormats.DCIPHER_KEY -> FileType.DKF
-            DCipherFileFormats.DCIPHER_ENCRYPTED_FILE -> FileType.DEF
+            DCipherFileFormats.DCIPHER_ENCRYPTED_FILE -> FileType.DCF
             DCipherFileFormats.DCIPHER_DECRYPTED_FILE -> FileType.TXT
             else -> FileType.UNKNOWN
         }
