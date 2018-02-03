@@ -270,6 +270,7 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
         val shareKeyIntent = Intent()
         shareKeyIntent.action = Intent.ACTION_SEND
         shareKeyIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+        shareKeyIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         shareKeyIntent.type = "*/*"
         startActivity(Intent.createChooser(shareKeyIntent, "Share Encrypted file"))
     }
