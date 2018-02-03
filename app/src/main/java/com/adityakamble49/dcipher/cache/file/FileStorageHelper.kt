@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
 import android.provider.OpenableColumns
+import android.support.v4.content.FileProvider
 import com.adityakamble49.dcipher.di.scope.PerApplication
 import java.io.*
 import javax.inject.Inject
@@ -28,7 +29,8 @@ class FileStorageHelper @Inject constructor(
         }
 
         val file = File(appContext.getExternalFilesDir(filePath), fileName)
-        val fileUri = Uri.fromFile(file)
+        val fileUri = FileProvider.getUriForFile(appContext, "${appContext.packageName}.provider",
+                file)
         val fos = FileOutputStream(file)
         val oos = ObjectOutputStream(fos)
         oos.writeObject(content)
