@@ -94,6 +94,7 @@ dependencies {
     implementation appDependencies.materialDialogsCommons
     implementation appDependencies.materialAbout
     implementation appDependencies.gson
+    implementation appDependencies.materialTapTarget
     implementation appDependencies.ossLicenses
 
     kapt appDependencies.daggerCompiler

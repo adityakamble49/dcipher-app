@@ -16,6 +16,7 @@ class PreferenceHelper @Inject constructor(context: Context) {
         private val PREF_DCIPHER_PACKAGE_NAME = "com.adityakamble49.dcipher"
 
         private val PREF_KEY_CURRENT_ENCRYPTION_KEY_ID = "current_encryption_key_id"
+        val DEFAULT_CURRENT_ENCRYPTION_KEY_ID = 0
     }
 
     private val dCipherPref: SharedPreferences
@@ -25,7 +26,8 @@ class PreferenceHelper @Inject constructor(context: Context) {
     }
 
     var currentEncryptionKeyId: Int
-        get() = dCipherPref.getInt(PREF_KEY_CURRENT_ENCRYPTION_KEY_ID, 0)
+        get() = dCipherPref.getInt(PREF_KEY_CURRENT_ENCRYPTION_KEY_ID,
+                DEFAULT_CURRENT_ENCRYPTION_KEY_ID)
         set(currentKeyId) = dCipherPref.edit().putInt(PREF_KEY_CURRENT_ENCRYPTION_KEY_ID,
                 currentKeyId).apply()
 }

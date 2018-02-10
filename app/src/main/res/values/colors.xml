@@ -15,6 +15,7 @@
     <color name="almost_white">#ffeeee</color>
     <color name="light_gray">#a39e9e</color>
     <color name="dark_gray">#6c6363</color>
+    <color name="tap_target_background">#6c6363</color>
 
     <!--FAB Colors-->
     <color name="black_semi_transparent">#B2000000</color>

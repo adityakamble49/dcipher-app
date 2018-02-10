@@ -18,6 +18,7 @@ import com.adityakamble49.dcipher.ui.common.CommonViewModelFactory
 import com.adityakamble49.dcipher.ui.keys.KeyManagerActivity
 import com.adityakamble49.dcipher.utils.Constants.Companion.TEXT_INTENT
 import com.adityakamble49.dcipher.utils.Constants.ShareEncryptionType
+import com.adityakamble49.dcipher.utils.getColorResource
 import com.adityakamble49.dcipher.utils.hasSpecialChar
 import com.adityakamble49.dcipher.utils.showToast
 import com.afollestad.materialdialogs.DialogAction
@@ -27,7 +28,9 @@ import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_encrypt.*
+import kotlinx.android.synthetic.main.layout_loaded_key.*
 import timber.log.Timber
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import javax.inject.Inject
 
 class EncryptActivity : AppCompatActivity(), View.OnClickListener {
@@ -146,8 +149,18 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
                 currentEncryptionKey = null
                 val loadedKey = getString(R.string.loaded_key_placeholder, "No Key Loaded")
                 loaded_key.text = loadedKey
+                showChangeKeyGuide()
             }
         }
+    }
+
+    private fun showChangeKeyGuide() {
+        MaterialTapTargetPrompt.Builder(this)
+                .setTarget(R.id.change_encryption_key)
+                .setPrimaryText(getString(R.string.encryption_key_encrypt_guide_primary_text))
+                .setSecondaryText(getString(R.string.encryption_key_encrypt_guide_secondary_text))
+                .setBackgroundColour(getColorResource(R.color.tap_target_background))
+                .show()
     }
 
     private fun handleEncryptText() {

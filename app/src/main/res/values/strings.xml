@@ -75,4 +75,10 @@
     <string name="license">License</string>
     <string name="file_format_error_message">File format unsupported</string>
     <string name="key_list_empty_error_message">Key List Empty !</string>
+
+    <string name="encryption_key_encrypt_guide_primary_text">Set Encryption Key</string>
+    <string name="encryption_key_encrypt_guide_secondary_text">Generate or Use existing Encryption Key to encrypt the text</string>
+    <string name="encryption_key_decrypt_guide_primary_text">Set Encryption Key</string>
+    <string name="encryption_key_decrypt_guide_secondary_text">Generate or Use existing Encryption Key to decrypt the text</string>
+
 </resources>

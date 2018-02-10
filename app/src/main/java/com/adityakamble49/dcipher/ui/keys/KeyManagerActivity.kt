@@ -50,7 +50,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
     private lateinit var keyManagerViewModel: KeyManagerViewModel
 
     // Views
-    private lateinit var encryptionKeyListAdapter: EncryptionKeyListAdapter
+    @Inject lateinit var encryptionKeyListAdapter: EncryptionKeyListAdapter
 
     // Other Fields
     val REQ_FILE_CHOOSER = 901
@@ -140,7 +140,6 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
         // Setup Encryption Key List RecyclerView
         val linearLayoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, linearLayoutManager.orientation)
-        encryptionKeyListAdapter = EncryptionKeyListAdapter()
         encryptionKeyListAdapter.onItemClickListener = this
         encryption_key_list.layoutManager = linearLayoutManager
         encryption_key_list.addItemDecoration(decorator)

@@ -20,6 +20,7 @@ import com.adityakamble49.dcipher.model.EncryptionKey
 import com.adityakamble49.dcipher.ui.common.CommonViewModel
 import com.adityakamble49.dcipher.ui.common.CommonViewModelFactory
 import com.adityakamble49.dcipher.ui.keys.KeyManagerActivity
+import com.adityakamble49.dcipher.utils.getColorResource
 import com.adityakamble49.dcipher.utils.hasSpecialChar
 import com.adityakamble49.dcipher.utils.showToast
 import com.afollestad.materialdialogs.DialogAction
@@ -31,7 +32,9 @@ import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_decrypt.*
+import kotlinx.android.synthetic.main.layout_loaded_key.*
 import timber.log.Timber
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.io.File
 import javax.inject.Inject
 
@@ -158,8 +161,18 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
                 currentEncryptionKey = null
                 val loadedKey = getString(R.string.loaded_key_placeholder, "No Key Loaded")
                 loaded_key.text = loadedKey
+                showChangeKeyGuide()
             }
         }
+    }
+
+    private fun showChangeKeyGuide() {
+        MaterialTapTargetPrompt.Builder(this)
+                .setTarget(R.id.change_encryption_key)
+                .setPrimaryText(getString(R.string.encryption_key_decrypt_guide_primary_text))
+                .setSecondaryText(getString(R.string.encryption_key_decrypt_guide_secondary_text))
+                .setBackgroundColour(getColorResource(R.color.tap_target_background))
+                .show()
     }
 
     private fun handleIntentExtras(intent: Intent?) {
