@@ -30,39 +30,10 @@
             android:layout_gravity="bottom"
             android:text="@string/decrypt_text" />
 
-        <RelativeLayout
+        <include
             android:id="@+id/loaded_key_layout"
-            style="@style/LoadedRSAKeyLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="12dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp">
+            layout="@layout/layout_loaded_key" />
 
-            <TextView
-                android:id="@+id/loaded_key"
-                style="@style/LoadedRSAKey"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/change_encryption_key"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/loaded_key_placeholder" />
-
-            <Button
-                android:id="@+id/change_encryption_key"
-                style="@style/LoadedRSAKeyChange"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="@string/change" />
-
-        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>

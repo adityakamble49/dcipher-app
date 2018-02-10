@@ -1,8 +1,11 @@
 package com.adityakamble49.dcipher.utils
 
 import android.content.Context
+import android.support.annotation.ColorRes
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -43,4 +46,11 @@ fun View.makeVisible() {
 
 fun View.makeGone() {
     this.visibility = GONE
+}
+
+/**
+ * Simplified method for getting color resource using [ResourcesCompat]
+ */
+fun AppCompatActivity.getColorResource(@ColorRes colorRes: Int): Int {
+    return ResourcesCompat.getColor(resources, colorRes, theme)
 }
