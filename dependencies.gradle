@@ -30,6 +30,7 @@ ext {
     materialAboutVersion = '2.2.3'
     gsonVersion = '2.8.2'
     googleServicesVersion = '11.8.0'
+    materialTapTargetVersion = '2.6.1'
 
     // Testing
     jUnitVersion = '4.12'
@@ -62,6 +63,7 @@ ext {
             debugDb               : "com.amitshekhar.android:debug-db:${debugDbVersion}",
             materialAbout         : "com.github.daniel-stoneuk:material-about-library:${materialAboutVersion}",
             gson                  : "com.google.code.gson:gson:${gsonVersion}",
+            materialTapTarget     : "uk.co.samuelwall:material-tap-target-prompt:${materialTapTargetVersion}",
             ossLicenses           : "com.google.android.gms:play-services-oss-licenses:${googleServicesVersion}",
     ]
 
