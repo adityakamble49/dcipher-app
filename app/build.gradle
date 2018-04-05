@@ -58,6 +58,7 @@ android {
         abortOnError false
         ignoreWarnings true
     }
+    buildToolsVersion '27.0.3'
 }
 
 configurations.all {
@@ -105,6 +106,7 @@ dependencies {
     debugImplementation appDependencies.debugDb
 
     testImplementation appTestDependencies.junit
+    testImplementation appTestDependencies.mockitoCore
     androidTestImplementation appTestDependencies.supportRunner
     androidTestImplementation appTestDependencies.expressoCore
 }

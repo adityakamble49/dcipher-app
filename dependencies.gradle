@@ -34,6 +34,7 @@ ext {
 
     // Testing
     jUnitVersion = '4.12'
+    mockitoVersion = '2.13.0'
     expressoVersion = '3.0.1'
     androidSupportRunnerVersion = '1.0.1'
 
@@ -69,6 +70,7 @@ ext {
 
     appTestDependencies = [
             junit        : "junit:junit:${jUnitVersion}",
+            mockitoCore  : "org.mockito:mockito-core:${mockitoVersion}",
             supportRunner: "com.android.support.test:runner:${androidSupportRunnerVersion}",
             expressoCore : "com.android.support.test.espresso:espresso-core:${expressoVersion}",
     ]
