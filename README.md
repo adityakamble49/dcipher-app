@@ -1,5 +1,7 @@
 # DCipher :closed_lock_with_key:
 
+[![Build Status](https://travis-ci.org/adityakamble49/dcipher-app.svg?branch=master)](https://travis-ci.org/adityakamble49/dcipher-app)
+
 Send Secret Messages with 100% Offline Encryption :fire:
 
 ![DCipher Poster](https://github.com/adityakamble49/adityakamble49.com/raw/gh-pages/images/dcipher/dcipher_featured_graphics.png)
