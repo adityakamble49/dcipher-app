@@ -9,7 +9,7 @@ Send Secret Messages with 100% Offline Encryption :fire:
 
 ## Screens
 
-![DCipher Screens](https://s25.postimg.org/ucgf9hldr/dcipher_screens.png)
+![DCipher Screens](https://raw.githubusercontent.com/adityakamble49/adityakamble49.com/gh-pages/images/dcipher/dcipher_screens.png)
 
 
 ## Download
