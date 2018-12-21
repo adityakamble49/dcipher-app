@@ -4,19 +4,19 @@
 
 Send Secret Messages with 100% Offline Encryption :fire:
 
-![DCipher Poster](https://github.com/adityakamble49/adityakamble49.com/raw/gh-pages/images/dcipher/dcipher_featured_graphics.png)
+![DCipher Poster](art/dcipher_featured_graphics.png)
 
 
 ## Screens
 
-![DCipher Screens](https://raw.githubusercontent.com/adityakamble49/adityakamble49.com/gh-pages/images/dcipher/dcipher_screens.png)
+![DCipher Screens](art/dcipher_screens.png)
 
 
 ## Download
 
-<a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.adityakamble49.dcipher'><img alt='Get it on Google Play' src='https://github.com/adityakamble49/adityakamble49.com/raw/gh-pages/images/google-play-badge-small.png'/></a>
+<a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.adityakamble49.dcipher'><img alt='Get it on Google Play' src='art/google-play-badge-small.png'/></a>
 
-![DCipher QR Code](https://github.com/adityakamble49/adityakamble49.com/raw/gh-pages/images/dcipher/dcipher_google_play_qr_code.png)
+![DCipher QR Code](art/dcipher_google_play_qr_code.png)
 
 
 ## Introduction
