@@ -14,7 +14,7 @@ ext {
     androidCompileSdkVersion = 27
 
     // Libraries
-    kotlinVersion = '1.2.30'
+    kotlinVersion = '1.2.71'
     supportLibraryVersion = '27.0.2'
     roomVersion = '1.0.0'
     javaxInjectVersion = '1'
