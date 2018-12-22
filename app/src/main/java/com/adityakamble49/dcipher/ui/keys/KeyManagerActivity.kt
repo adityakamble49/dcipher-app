@@ -262,7 +262,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
             .inputType(InputType.TYPE_CLASS_TEXT)
             .inputRange(1, 50)
             .input(getString(R.string.generate_key_dialog_hint),
-                    getString(R.string.generate_key_dialog_prefill), { dialog, input ->
+                    getString(R.string.generate_key_dialog_prefill)) { dialog, input ->
                 val keyName = input.toString()
                 if (keyName.hasSpecialChar()) {
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
@@ -274,7 +274,7 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
                     dialog.setContent(getString(R.string.generate_key_dialog_content))
                 }
-            })
+            }
             .onPositive { dialog, _ ->
                 dialog.inputEditText?.text.let {
                     keyManagerViewModel.generateAndSaveEncryptionKey(it.toString(),
