@@ -21,6 +21,7 @@
     <string name="generate_key_dialog_hint">Key Pair Name</string>
     <string name="generate_key_dialog_prefill">Default Key 1</string>
     <string name="generate_key_dialog_special_char_warning">Special characters not allowed</string>
+    <string name="generate_key_dialog_empty_warning">Blank Key name not allowed</string>
 
     <string name="encryption_key_added_success">Key Added</string>
     <string name="encryption_key_generation_failed_name_present">Key Name Present!</string>

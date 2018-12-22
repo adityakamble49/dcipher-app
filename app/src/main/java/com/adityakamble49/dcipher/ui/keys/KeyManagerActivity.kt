@@ -267,6 +267,9 @@ class KeyManagerActivity : AppCompatActivity(), AdapterView.OnItemClickListener,
                 if (keyName.hasSpecialChar()) {
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
                     dialog.setContent(getString(R.string.generate_key_dialog_special_char_warning))
+                } else if (keyName.isEmpty()) {
+                    dialog.getActionButton(DialogAction.POSITIVE).isEnabled = false
+                    dialog.setContent(getString(R.string.generate_key_dialog_empty_warning))
                 } else {
                     dialog.getActionButton(DialogAction.POSITIVE).isEnabled = true
                     dialog.setContent(getString(R.string.generate_key_dialog_content))
