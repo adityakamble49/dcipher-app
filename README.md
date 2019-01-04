@@ -14,7 +14,9 @@ Send Secret Messages with 100% Offline Encryption :fire:
 
 ## Download
 
-<a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=com.adityakamble49.dcipher'><img alt='Get it on Google Play' src='art/google-play-badge-small.png'/></a>
+
+[<img src="art/google-play-badge.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.adityakamble49.dcipher)
+[<img src="art/fdroid-badge.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.adityakamble49.dcipher)
 
 ![DCipher QR Code](art/dcipher_google_play_qr_code.png)
 
