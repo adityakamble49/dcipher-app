@@ -7,14 +7,29 @@
     android:orientation="vertical"
     tools:context="com.adityakamble49.dcipher.ui.encrypt.EncryptActivity">
 
-    <EditText
-        android:id="@+id/input_text"
-        style="@style/InputText.Encrypt"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:hint="@string/encrypt_text_hint"
-        android:inputType="textMultiLine" />
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/input_text_view"
+            style="@style/InputText.Encrypt"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:textIsSelectable="true" />
+
+        <EditText
+            android:id="@+id/input_text"
+            style="@style/InputText.Encrypt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/encrypt_text_hint"
+            android:inputType="textMultiLine" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +47,7 @@
 
         <include
             android:id="@+id/loaded_key_layout"
-            layout="@layout/layout_loaded_key"/>
+            layout="@layout/layout_loaded_key" />
 
     </RelativeLayout>
 

@@ -197,18 +197,22 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleEncryptedText(encryptedText: String) {
         isEncrypted = true
-        input_text.setText(encryptedText)
         input_text.isEnabled = false
-        input_text.setBackgroundResource(R.color.light_black)
-        input_text.setTextColor(ContextCompat.getColor(this, R.color.white))
+        input_text.setText("")
+        input_text.visibility = View.INVISIBLE
+        input_text_view.text = encryptedText
+        input_text_view.setBackgroundResource(R.color.light_black)
+        input_text_view.setTextColor(ContextCompat.getColor(this, R.color.white))
     }
 
     private fun handleResetEncryption() {
         isEncrypted = false
         input_text.setText("")
+        input_text_view.text = ""
         input_text.isEnabled = true
-        input_text.setBackgroundResource(R.color.white)
-        input_text.setTextColor(ContextCompat.getColor(this, R.color.almost_black))
+        input_text.visibility = View.VISIBLE
+        input_text_view.setBackgroundResource(R.color.white)
+        input_text_view.setTextColor(ContextCompat.getColor(this, R.color.almost_black))
     }
 
     private fun handleShareEncryption() {

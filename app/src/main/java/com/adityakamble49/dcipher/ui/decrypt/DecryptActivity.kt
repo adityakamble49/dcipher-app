@@ -235,18 +235,22 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun handleDecryptedText(decryptedText: String) {
         isDecrypted = true
-        input_text.setText(decryptedText)
         input_text.isEnabled = false
-        input_text.setBackgroundResource(R.color.almost_white)
-        input_text.setTextColor(ContextCompat.getColor(this, R.color.light_black))
+        input_text.setText("")
+        input_text.visibility = View.INVISIBLE
+        input_text_view.text = decryptedText
+        input_text_view.setBackgroundResource(R.color.almost_white)
+        input_text_view.setTextColor(ContextCompat.getColor(this, R.color.light_black))
     }
 
     private fun handleResetDecryption() {
         isDecrypted = false
         input_text.setText("")
+        input_text_view.text = ""
         input_text.isEnabled = true
-        input_text.setBackgroundResource(R.color.almost_black)
-        input_text.setTextColor(ContextCompat.getColor(this, R.color.white))
+        input_text.visibility = View.VISIBLE
+        input_text_view.setBackgroundResource(R.color.almost_black)
+        input_text_view.setTextColor(ContextCompat.getColor(this, R.color.white))
     }
 
     private fun handleSaveDecryption() {
@@ -296,7 +300,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun performExternalStorageOperation(permissionReqCode: Int, operation: () -> Unit) {
         if (ContextCompat.checkSelfPermission(this,
-                PERMISSION_WRITE) != PackageManager.PERMISSION_GRANTED) {
+                        PERMISSION_WRITE) != PackageManager.PERMISSION_GRANTED) {
             // Request permission
             ActivityCompat.requestPermissions(this, PERMISSION_LIST, permissionReqCode)
         } else {

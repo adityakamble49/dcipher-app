@@ -37,12 +37,14 @@
     </style>
 
     <style name="InputText.Encrypt">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/almost_black</item>
         <item name="android:textColorHint">@color/dark_gray</item>
         <item name="android:background">@color/white</item>
     </style>
 
     <style name="InputText.Decrypt">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/light_gray</item>
         <item name="android:background">@color/almost_black</item>
