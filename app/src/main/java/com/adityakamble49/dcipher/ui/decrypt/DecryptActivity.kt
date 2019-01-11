@@ -209,13 +209,13 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
             showToast(R.string.key_not_loaded)
             return
         }
-        val textToEncrypt = input_text.text.toString()
-        if (textToEncrypt.isEmpty()) {
+        val textToDecrypt = input_text.text.toString()
+        if (textToDecrypt.isEmpty()) {
             showToast(R.string.text_empty)
             return
         }
         currentEncryptionKey?.let {
-            decryptViewModel.decryptText(it, textToEncrypt, DecryptTextSubscriber())
+            decryptViewModel.decryptText(it, textToDecrypt, DecryptTextSubscriber())
         }
     }
 
@@ -262,7 +262,7 @@ class DecryptActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     private fun saveDecryptedTextToFile() {
-        currentDecryptedText = input_text.text.toString()
+        currentDecryptedText = input_text_view.text.toString()
         buildSaveDecryptedFileNameDialog().show()
     }
 

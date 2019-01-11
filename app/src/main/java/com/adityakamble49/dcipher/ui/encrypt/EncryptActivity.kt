@@ -230,7 +230,7 @@ class EncryptActivity : AppCompatActivity(), View.OnClickListener {
             .build()
 
     private fun handleShareEncryptionWith(shareWith: Int) {
-        val encryptedText = input_text.text.toString()
+        val encryptedText = input_text_view.text.toString()
         when (shareWith) {
             ShareEncryptionType.TEXT -> {
                 val shareTextIntent = Intent(Intent.ACTION_SEND)
