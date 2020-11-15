@@ -12,15 +12,6 @@ Send Secret Messages with 100% Offline Encryption :fire:
 ![DCipher Screens](art/dcipher_screens.png)
 
 
-## Download
-
-
-[<img src="art/google-play-badge.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.adityakamble49.dcipher)
-[<img src="art/fdroid-badge.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.adityakamble49.dcipher)
-
-![DCipher QR Code](art/dcipher_google_play_qr_code.png)
-
-
 ## Introduction
 
 D'Cipher helps users to share their sensitive information with control.
